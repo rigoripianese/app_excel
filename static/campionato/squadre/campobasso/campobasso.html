@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campobasso FC - Giocatori</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="../../../images/logo.webp" type="image/x-icon">
+    <script>
+        // Check if the user is authenticated
+        window.onload = function() {
+            const isAuthenticated = sessionStorage.getItem('isAuthenticated');
+            if (!isAuthenticated) {
+                // Redirect to login page if not authenticated
+                window.location.href = '../../../login/login.html?redirect=../campionato/squadre/campobasso/campobasso.html';
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="../../../images/logo.webp" alt="Logo Pianese">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="../../../index.html">Torna alla Home</a></li>
+                <li><a href="../../campionato.html">Campionato</a></li>
+                <li><a href="../../../coppa/coppa.html">Coppa</a></li>
+                <li><a href="../../../calendario/calendario.html">Calendario</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="logosquadra">
+            <img src="../../loghi/campobasso.png" alt="Logo campobasso" style="width: 8%;">
+        </div>
+        <h1>Giocatori Campobasso FC</h1>
+        <div class="players-container">
+            <a href="baldassin/baldassin.html" class="player-button">Baldassin 14</a>
+            <a href="dangelo/dangelo.html" class="player-button">D'Angelo 27</a>
+            <a href="dinardo/dinardo.html" class="player-button">Di Nardo 9</a>
+            <a href="distefano/distefano.html" class="player-button">Di Stefano 73</a>
+            <a href="forte/forte.html" class="player-button">Forte 7</a>
+            <a href="maldonado/maldonado.html" class="player-button">Maldonado 20</a>
+            <a href="pellitteri/pellitteri.html" class="player-button">Pellitteri 23</a>
+        </div>
+    </main>
+    <footer>
+        <p>&copy;Fabio Rossi e Umberto Di Giacomo</p>
+    </footer>
+</body>
+</html>
+

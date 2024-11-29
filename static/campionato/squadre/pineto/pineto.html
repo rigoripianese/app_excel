@@ -1,0 +1,50 @@
+<!-- template_squadra.html -->
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pineto Calcio - Giocatori</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="../../../images/logo.webp" type="image/x-icon">
+    <script>
+        // Check if the user is authenticated
+        window.onload = function() {
+            const isAuthenticated = sessionStorage.getItem('isAuthenticated');
+            if (!isAuthenticated) {
+                // Redirect to login page if not authenticated
+                window.location.href = '../../../login/login.html?redirect=../campionato/squadre/pineto/pineto.html';
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="../../../images/logo.webp" alt="Logo Pianese">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="../../../index.html">Torna alla Home</a></li>
+                <li><a href="../../campionato.html">Campionato</a></li>
+                <li><a href="../../../coppa/coppa.html">Coppa</a></li>
+                <li><a href="../../../calendario/calendario.html">Calendario</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="logosquadra">
+            <img src="../../loghi/pineto.png" alt="Logo pineto" style="width: 16%;">
+        </div>
+        <h1>Giocatori Pineto Calcio</h1>
+        <div class="players-container">
+			<a href="bruzzanti/bruzzanti.html" class="player-button">Bruzzaniti 10</a>
+			<a href="fabrizi/fabrizi.html" class="player-button">Fabrizi 23</a>
+			<a href="gambale/gambale.html" class="player-button">Gambale 9</a>
+        </div>
+    </main>
+    <footer>
+        <p>&copy;Fabio Rossi e Umberto Di Giacomo</p>
+    </footer>
+</body>
+</html>

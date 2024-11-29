@@ -1,0 +1,53 @@
+<!-- template_squadra.html -->
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FC Legnago Salus - Giocatori</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="../../../images/logo.webp" type="image/x-icon">
+    <script>
+        // Check if the user is authenticated
+        window.onload = function() {
+            const isAuthenticated = sessionStorage.getItem('isAuthenticated');
+            if (!isAuthenticated) {
+                // Redirect to login page if not authenticated
+                window.location.href = '../../../login/login.html?redirect=../campionato/squadre/legnago/legnago.html';
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="../../../images/logo.webp" alt="Logo Pianese">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="../../../index.html">Torna alla Home</a></li>
+                <li><a href="../../campionato.html">Campionato</a></li>
+                <li><a href="../../../coppa/coppa.html">Coppa</a></li>
+                <li><a href="../../../calendario/calendario.html">Calendario</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="logosquadra">
+            <img src="../../loghi/legnago.png" alt="Logo legnago" style="width: 16%;">
+        </div>
+        <h1>Giocatori FC Legnago Salus</h1>
+        <div class="players-container">
+			<a href="damore/damore.html" class="player-button">D'Amore 28</a>
+			<a href="demirovic/demirovic.html" class="player-button">Demirovic 10</a>
+			<a href="franzolini/franzolini.html" class="player-button">Franzolini 93</a>
+			<a href="palazzino/palazzino.html" class="player-button">Palazzino 7</a>
+			<a href="rossi/rossi.html" class="player-button">Rossi 18</a>
+			<a href="svidercoschi/svidercoschi.html" class="player-button">Svidercoschi 9</a>
+        </div>
+    </main>
+    <footer>
+        <p>&copy;Fabio Rossi e Umberto Di Giacomo</p>
+    </footer>
+</body>
+</html>

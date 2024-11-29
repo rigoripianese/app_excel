@@ -1,0 +1,52 @@
+<!-- template_squadra.html -->
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AS Gubbio 1910 - Giocatori</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="../../../images/logo.webp" type="image/x-icon">
+    <script>
+        // Check if the user is authenticated
+        window.onload = function() {
+            const isAuthenticated = sessionStorage.getItem('isAuthenticated');
+            if (!isAuthenticated) {
+                // Redirect to login page if not authenticated
+                window.location.href = '../../../login/login.html?redirect=../campionato/squadre/gubbio/gubbio.html';
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="../../../images/logo.webp" alt="Logo Pianese">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="../../../index.html">Torna alla Home</a></li>
+                <li><a href="../../campionato.html">Campionato</a></li>
+                <li><a href="../../../coppa/coppa.html">Coppa</a></li>
+                <li><a href="../../../calendario/calendario.html">Calendario</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="logosquadra">
+            <img src="../../loghi/gubbio.png" alt="Logo gubbio" style="width: 16%;">
+        </div>
+        <h1>Giocatori AS Gubbio 1910</h1>
+        <div class="players-container">
+			<a href="dimassimo/dimassimo.html" class="player-button">Di Massimo 10</a>
+			<a href="dursi/dursi.html" class="player-button">D'Ursi 7</a>
+			<a href="maisto/maisto.html" class="player-button">Maisto 28</a>
+			<a href="rovaglia/rovaglia.html" class="player-button">Rovaglia 11</a>
+			<a href="tommasini/tommasini.html" class="player-button">Tommasini 9</a>
+        </div>
+    </main>
+    <footer>
+        <p>&copy;Fabio Rossi e Umberto Di Giacomo</p>
+    </footer>
+</body>
+</html>

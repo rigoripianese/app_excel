@@ -1,0 +1,53 @@
+<!-- template_squadra.html -->
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torres - Giocatori</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="../../../images/logo.webp" type="image/x-icon">
+    <script>
+        // Check if the user is authenticated
+        window.onload = function() {
+            const isAuthenticated = sessionStorage.getItem('isAuthenticated');
+            if (!isAuthenticated) {
+                // Redirect to login page if not authenticated
+                window.location.href = '../../../login/login.html?redirect=../campionato/squadre/torres/torres.html';
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="../../../images/logo.webp" alt="Logo Pianese">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="../../../index.html">Torna alla Home</a></li>
+                <li><a href="../../campionato.html">Campionato</a></li>
+                <li><a href="../../../coppa/coppa.html">Coppa</a></li>
+                <li><a href="../../../calendario/calendario.html">Calendario</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="logosquadra">
+            <img src="../../loghi/torres.png" alt="Logo torres" style="width: 16%;">
+        </div>
+        <h1>Giocatori Torres</h1>
+        <div class="players-container">
+			<a href="diakite/diakite.html" class="player-button">Diakite 11</a>
+			<a href="fischnaller/fischnaller.html" class="player-button">Fischnaller 20</a>
+			<a href="liviero/liviero.html" class="player-button">Liviero 7</a>
+			<a href="mercadante/mercadante.html" class="player-button">Mercadante 3</a>
+			<a href="scotto/scotto.html" class="player-button">Scotto 9</a>
+			<a href="varela/varela.html" class="player-button">Varela 70</a>
+        </div>
+    </main>
+    <footer>
+        <p>&copy;Fabio Rossi e Umberto Di Giacomo</p>
+    </footer>
+</body>
+</html>

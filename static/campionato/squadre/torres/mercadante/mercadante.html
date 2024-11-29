@@ -1,0 +1,447 @@
+<!-- template.html -->
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mario Mercadante</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="../../../../images/logo.webp" type="image/x-icon">
+    <script>
+        // Check if the user is authenticated
+        window.onload = function() {
+            const isAuthenticated = sessionStorage.getItem('isAuthenticated');
+            if (!isAuthenticated) {
+                // Redirect to login page if not authenticated
+                window.location.href = '../../../../login/login.html?redirect=../campionato/squadre/torres/mercadante/mercadante.html';
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="../../../../images/logo.webp" alt="Logo Pianese"> <!-- Sostituisci "logo.png" con il tuo file -->
+        </div>
+        <nav>
+            <ul>
+                <li><a href="../../../../index.html">Torna alla Home</a></li>
+                <li><a href="../../../campionato.html">Campionato</a></li>
+                <li><a href="../../../../coppa/coppa.html">Coppa</a></li>
+                <li><a href="../../../../calendario/calendario.html">Calendario</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Mario Mercadante</h1>
+        <img src="mercadante.webp" style="width: 5%;">
+        <div class="container">
+            <h2 style="text-align: center; font-weight: bolder;">
+                Piede di Calcio: Sinistro
+            </h2>
+        </div>
+        <div class="back_arrow">
+            <p style="margin-bottom: 40px;">Clicca la freccia per tornare alla selezione dei giocatori</p>
+            <a href="../torres.html">
+                <img src="../../../../images/back_arrow.png" style="width: 10%;">
+            </a>
+        </div>
+        <div class="goal">
+            <img src="../../../../images/porta.png" alt="Goal" width="730" height="244">
+            <div id="balls-container" class="balls-container">
+            <a href="https://www.youtube.com/watch?v=Reagr6dpYo4&list=PLD64-55Vi5w6L21CnQ2FAzuEi3QAmWlDq&index=1" target="_blank" class="ball-link1">
+                <div class="ball" style="position: absolute; top: 90.0%; left: 10.0%;">
+                    <img src="../../../../images/missed.png" alt="Football">
+                    <span class="ball-number" style="color: black;">1</span>
+                </div>
+            </a>
+            
+            <a href="https://www.youtube.com/watch?v=pHdm4LBXQjM&list=PLD64-55Vi5w6L21CnQ2FAzuEi3QAmWlDq&index=2" target="_blank" class="ball-link2">
+                <div class="ball" style="position: absolute; top: 100.0%; left: 86.33333333333333%;">
+                    <img src="../../../../images/missed.png" alt="Football">
+                    <span class="ball-number" style="color: black;">2</span>
+                </div>
+            </a>
+            
+            <a href="https://www.youtube.com/watch?v=OO0Ny2tJytA&list=PLD64-55Vi5w6L21CnQ2FAzuEi3QAmWlDq&index=3" target="_blank" class="ball-link3">
+                <div class="ball" style="position: absolute; top: 90.0%; left: 23.333333333333332%;">
+                    <img src="../../../../images/football.png" alt="Football">
+                    <span class="ball-number" style="color: black;">3</span>
+                </div>
+            </a>
+            
+            <a href="https://www.youtube.com/watch?v=NnYuBjOo34Y&list=PLD64-55Vi5w6L21CnQ2FAzuEi3QAmWlDq&index=4" target="_blank" class="ball-link4">
+                <div class="ball" style="position: absolute; top: 36.0%; left: 96.66666666666667%;">
+                    <img src="../../../../images/football.png" alt="Football">
+                    <span class="ball-number" style="color: black;">4</span>
+                </div>
+            </a>
+            
+            <a href="https://www.youtube.com/watch?v=v74AnGfb8BQ&list=PLD64-55Vi5w6L21CnQ2FAzuEi3QAmWlDq&index=5" target="_blank" class="ball-link5">
+                <div class="ball" style="position: absolute; top: 100.0%; left: 83.33333333333334%;">
+                    <img src="../../../../images/football.png" alt="Football">
+                    <span class="ball-number" style="color: black;">5</span>
+                </div>
+            </a>
+            
+            <a href="https://www.youtube.com/watch?v=BefbXksn8qA&list=PLD64-55Vi5w6L21CnQ2FAzuEi3QAmWlDq&index=6&pp=gAQBiAQB" target="_blank" class="ball-link6">
+                <div class="ball" style="position: absolute; top: 80.0%; left: 6.666666666666667%;">
+                    <img src="../../../../images/football.png" alt="Football">
+                    <span class="ball-number" style="color: black;">6</span>
+                </div>
+            </a>
+            
+            <a href="https://www.youtube.com/watch?v=_X6-Y0LudHg&list=PLD64-55Vi5w6L21CnQ2FAzuEi3QAmWlDq&index=7" target="_blank" class="ball-link7">
+                <div class="ball" style="position: absolute; top: 28.999999999999996%; left: 90.0%;">
+                    <img src="../../../../images/football.png" alt="Football">
+                    <span class="ball-number" style="color: black;">7</span>
+                </div>
+            </a>
+            
+            <a href="https://www.youtube.com/watch?v=z-19gPCMIiE&list=PLD64-55Vi5w6L21CnQ2FAzuEi3QAmWlDq&index=8" target="_blank" class="ball-link8">
+                <div class="ball" style="position: absolute; top: 100.0%; left: 8.333333333333332%;">
+                    <img src="../../../../images/football.png" alt="Football">
+                    <span class="ball-number" style="color: black;">8</span>
+                </div>
+            </a>
+            
+            <a href="https://www.youtube.com/watch?v=achIof18xXw&list=PLD64-55Vi5w6L21CnQ2FAzuEi3QAmWlDq&index=9" target="_blank" class="ball-link9">
+                <div class="ball" style="position: absolute; top: 18.0%; left: 93.33333333333333%;">
+                    <img src="../../../../images/football.png" alt="Football">
+                    <span class="ball-number" style="color: black;">9</span>
+                </div>
+            </a>
+            
+            <a href="https://www.youtube.com/watch?v=XZxEKyo57Zc&list=PLD64-55Vi5w6L21CnQ2FAzuEi3QAmWlDq&index=10" target="_blank" class="ball-link10">
+                <div class="ball" style="position: absolute; top: 100.0%; left: 42.33333333333333%;">
+                    <img src="../../../../images/football.png" alt="Football">
+                    <span class="ball-number" style="color: black;">10</span>
+                </div>
+            </a>
+            
+            <a href="https://www.youtube.com/watch?v=NTHmNiqstXM&list=PLD64-55Vi5w6L21CnQ2FAzuEi3QAmWlDq&index=11" target="_blank" class="ball-link11">
+                <div class="ball" style="position: absolute; top: 100.0%; left: 20.0%;">
+                    <img src="../../../../images/football.png" alt="Football">
+                    <span class="ball-number" style="color: black;">11</span>
+                </div>
+            </a>
+            
+            <a href="https://www.youtube.com/watch?v=aOumNw-5t3U&list=PLD64-55Vi5w6L21CnQ2FAzuEi3QAmWlDq&index=12" target="_blank" class="ball-link12">
+                <div class="ball" style="position: absolute; top: 100.0%; left: 73.33333333333333%;">
+                    <img src="../../../../images/football.png" alt="Football">
+                    <span class="ball-number" style="color: black;">12</span>
+                </div>
+            </a>
+            
+            <a href="https://www.youtube.com/watch?v=Zt0TIglFwnI&list=PLD64-55Vi5w6L21CnQ2FAzuEi3QAmWlDq&index=13" target="_blank" class="ball-link13">
+                <div class="ball" style="position: absolute; top: 100.0%; left: 97.66666666666667%;">
+                    <img src="../../../../images/football.png" alt="Football">
+                    <span class="ball-number" style="color: black;">13</span>
+                </div>
+            </a>
+            
+                
+            </div>
+        </div>
+        <div class="list_of_penalties">
+    <table class="penalty-table" style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+        <thead>
+            <tr>
+                <th style="border: 1px solid #ddd; padding: 8px;">#</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Partita</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Minuto</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Esito</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Risultato</th>
+                <th style="border: 1px solid #ddd; padding: 8px;">Video</th>
+            </tr>
+        </thead>
+        <tbody>
+    
+        <tr>
+            <td data-label="#" style="border: 1px solid #ddd; padding: 8px;">1</td>
+            <td data-label="Partita" style="border: 1px solid #ddd; padding: 8px;">Arezzo-Gubbio</td>
+            <td data-label="Minuto" style="border: 1px solid #ddd; padding: 8px;">55</td>
+            <td data-label="Esito" style="border: 1px solid #ddd; padding: 8px; background-color: #F44336; color: #fff;">Sbagliato</td>
+            <td data-label="Risultato" style="border: 1px solid #ddd; padding: 8px;">0-0</td>
+            <td data-label="Video" style="border: 1px solid #ddd; padding: 8px;">
+                <a href="https://www.youtube.com/watch?v=Reagr6dpYo4&list=PLD64-55Vi5w6L21CnQ2FAzuEi3QAmWlDq&index=1" target="_blank" style="text-decoration: none; color: #000;">link</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td data-label="#" style="border: 1px solid #ddd; padding: 8px;">2</td>
+            <td data-label="Partita" style="border: 1px solid #ddd; padding: 8px;">Gubbio-Vis Pesaro</td>
+            <td data-label="Minuto" style="border: 1px solid #ddd; padding: 8px;">45</td>
+            <td data-label="Esito" style="border: 1px solid #ddd; padding: 8px; background-color: #F44336; color: #fff;">Sbagliato</td>
+            <td data-label="Risultato" style="border: 1px solid #ddd; padding: 8px;">0-0</td>
+            <td data-label="Video" style="border: 1px solid #ddd; padding: 8px;">
+                <a href="https://www.youtube.com/watch?v=pHdm4LBXQjM&list=PLD64-55Vi5w6L21CnQ2FAzuEi3QAmWlDq&index=2" target="_blank" style="text-decoration: none; color: #000;">link</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td data-label="#" style="border: 1px solid #ddd; padding: 8px;">3</td>
+            <td data-label="Partita" style="border: 1px solid #ddd; padding: 8px;">Cesena-Lecco</td>
+            <td data-label="Minuto" style="border: 1px solid #ddd; padding: 8px;">120</td>
+            <td data-label="Esito" style="border: 1px solid #ddd; padding: 8px; background-color: #4CAF50; color: #fff;">Trasformato</td>
+            <td data-label="Risultato" style="border: 1px solid #ddd; padding: 8px;">Rigori</td>
+            <td data-label="Video" style="border: 1px solid #ddd; padding: 8px;">
+                <a href="https://www.youtube.com/watch?v=OO0Ny2tJytA&list=PLD64-55Vi5w6L21CnQ2FAzuEi3QAmWlDq&index=3" target="_blank" style="text-decoration: none; color: #000;">link</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td data-label="#" style="border: 1px solid #ddd; padding: 8px;">4</td>
+            <td data-label="Partita" style="border: 1px solid #ddd; padding: 8px;">Lecco-Cesena</td>
+            <td data-label="Minuto" style="border: 1px solid #ddd; padding: 8px;">8</td>
+            <td data-label="Esito" style="border: 1px solid #ddd; padding: 8px; background-color: #4CAF50; color: #fff;">Trasformato</td>
+            <td data-label="Risultato" style="border: 1px solid #ddd; padding: 8px;">0-0</td>
+            <td data-label="Video" style="border: 1px solid #ddd; padding: 8px;">
+                <a href="https://www.youtube.com/watch?v=NnYuBjOo34Y&list=PLD64-55Vi5w6L21CnQ2FAzuEi3QAmWlDq&index=4" target="_blank" style="text-decoration: none; color: #000;">link</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td data-label="#" style="border: 1px solid #ddd; padding: 8px;">5</td>
+            <td data-label="Partita" style="border: 1px solid #ddd; padding: 8px;">Cesena-Monopoli</td>
+            <td data-label="Minuto" style="border: 1px solid #ddd; padding: 8px;">95</td>
+            <td data-label="Esito" style="border: 1px solid #ddd; padding: 8px; background-color: #4CAF50; color: #fff;">Trasformato</td>
+            <td data-label="Risultato" style="border: 1px solid #ddd; padding: 8px;">2-0</td>
+            <td data-label="Video" style="border: 1px solid #ddd; padding: 8px;">
+                <a href="https://www.youtube.com/watch?v=v74AnGfb8BQ&list=PLD64-55Vi5w6L21CnQ2FAzuEi3QAmWlDq&index=5" target="_blank" style="text-decoration: none; color: #000;">link</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td data-label="#" style="border: 1px solid #ddd; padding: 8px;">6</td>
+            <td data-label="Partita" style="border: 1px solid #ddd; padding: 8px;">Cesena-Monopoli</td>
+            <td data-label="Minuto" style="border: 1px solid #ddd; padding: 8px;">67</td>
+            <td data-label="Esito" style="border: 1px solid #ddd; padding: 8px; background-color: #4CAF50; color: #fff;">Trasformato</td>
+            <td data-label="Risultato" style="border: 1px solid #ddd; padding: 8px;">0-0</td>
+            <td data-label="Video" style="border: 1px solid #ddd; padding: 8px;">
+                <a href="https://www.youtube.com/watch?v=BefbXksn8qA&list=PLD64-55Vi5w6L21CnQ2FAzuEi3QAmWlDq&index=6&pp=gAQBiAQB" target="_blank" style="text-decoration: none; color: #000;">link</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td data-label="#" style="border: 1px solid #ddd; padding: 8px;">7</td>
+            <td data-label="Partita" style="border: 1px solid #ddd; padding: 8px;">Monopoli-Francavilla</td>
+            <td data-label="Minuto" style="border: 1px solid #ddd; padding: 8px;">92</td>
+            <td data-label="Esito" style="border: 1px solid #ddd; padding: 8px; background-color: #4CAF50; color: #fff;">Trasformato</td>
+            <td data-label="Risultato" style="border: 1px solid #ddd; padding: 8px;">0-0</td>
+            <td data-label="Video" style="border: 1px solid #ddd; padding: 8px;">
+                <a href="https://www.youtube.com/watch?v=_X6-Y0LudHg&list=PLD64-55Vi5w6L21CnQ2FAzuEi3QAmWlDq&index=7" target="_blank" style="text-decoration: none; color: #000;">link</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td data-label="#" style="border: 1px solid #ddd; padding: 8px;">8</td>
+            <td data-label="Partita" style="border: 1px solid #ddd; padding: 8px;">Monopoli-Catanzaro</td>
+            <td data-label="Minuto" style="border: 1px solid #ddd; padding: 8px;">16</td>
+            <td data-label="Esito" style="border: 1px solid #ddd; padding: 8px; background-color: #4CAF50; color: #fff;">Trasformato</td>
+            <td data-label="Risultato" style="border: 1px solid #ddd; padding: 8px;">1-1</td>
+            <td data-label="Video" style="border: 1px solid #ddd; padding: 8px;">
+                <a href="https://www.youtube.com/watch?v=z-19gPCMIiE&list=PLD64-55Vi5w6L21CnQ2FAzuEi3QAmWlDq&index=8" target="_blank" style="text-decoration: none; color: #000;">link</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td data-label="#" style="border: 1px solid #ddd; padding: 8px;">9</td>
+            <td data-label="Partita" style="border: 1px solid #ddd; padding: 8px;">Monopoli-Paganese</td>
+            <td data-label="Minuto" style="border: 1px solid #ddd; padding: 8px;">86</td>
+            <td data-label="Esito" style="border: 1px solid #ddd; padding: 8px; background-color: #4CAF50; color: #fff;">Trasformato</td>
+            <td data-label="Risultato" style="border: 1px solid #ddd; padding: 8px;">0-0</td>
+            <td data-label="Video" style="border: 1px solid #ddd; padding: 8px;">
+                <a href="https://www.youtube.com/watch?v=achIof18xXw&list=PLD64-55Vi5w6L21CnQ2FAzuEi3QAmWlDq&index=9" target="_blank" style="text-decoration: none; color: #000;">link</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td data-label="#" style="border: 1px solid #ddd; padding: 8px;">10</td>
+            <td data-label="Partita" style="border: 1px solid #ddd; padding: 8px;">Monopoli-Juve Stabia</td>
+            <td data-label="Minuto" style="border: 1px solid #ddd; padding: 8px;">30</td>
+            <td data-label="Esito" style="border: 1px solid #ddd; padding: 8px; background-color: #4CAF50; color: #fff;">Trasformato</td>
+            <td data-label="Risultato" style="border: 1px solid #ddd; padding: 8px;">0-0</td>
+            <td data-label="Video" style="border: 1px solid #ddd; padding: 8px;">
+                <a href="https://www.youtube.com/watch?v=XZxEKyo57Zc&list=PLD64-55Vi5w6L21CnQ2FAzuEi3QAmWlDq&index=10" target="_blank" style="text-decoration: none; color: #000;">link</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td data-label="#" style="border: 1px solid #ddd; padding: 8px;">11</td>
+            <td data-label="Partita" style="border: 1px solid #ddd; padding: 8px;">Monopoli-Potenza</td>
+            <td data-label="Minuto" style="border: 1px solid #ddd; padding: 8px;">120</td>
+            <td data-label="Esito" style="border: 1px solid #ddd; padding: 8px; background-color: #4CAF50; color: #fff;">Trasformato</td>
+            <td data-label="Risultato" style="border: 1px solid #ddd; padding: 8px;">Rigori</td>
+            <td data-label="Video" style="border: 1px solid #ddd; padding: 8px;">
+                <a href="https://www.youtube.com/watch?v=NTHmNiqstXM&list=PLD64-55Vi5w6L21CnQ2FAzuEi3QAmWlDq&index=11" target="_blank" style="text-decoration: none; color: #000;">link</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td data-label="#" style="border: 1px solid #ddd; padding: 8px;">12</td>
+            <td data-label="Partita" style="border: 1px solid #ddd; padding: 8px;">Potenza-Monopoli</td>
+            <td data-label="Minuto" style="border: 1px solid #ddd; padding: 8px;">53</td>
+            <td data-label="Esito" style="border: 1px solid #ddd; padding: 8px; background-color: #4CAF50; color: #fff;">Trasformato</td>
+            <td data-label="Risultato" style="border: 1px solid #ddd; padding: 8px;">2-0</td>
+            <td data-label="Video" style="border: 1px solid #ddd; padding: 8px;">
+                <a href="https://www.youtube.com/watch?v=aOumNw-5t3U&list=PLD64-55Vi5w6L21CnQ2FAzuEi3QAmWlDq&index=12" target="_blank" style="text-decoration: none; color: #000;">link</a>
+            </td>
+        </tr>
+        
+        <tr>
+            <td data-label="#" style="border: 1px solid #ddd; padding: 8px;">13</td>
+            <td data-label="Partita" style="border: 1px solid #ddd; padding: 8px;">Monopoli-Foggia</td>
+            <td data-label="Minuto" style="border: 1px solid #ddd; padding: 8px;">14</td>
+            <td data-label="Esito" style="border: 1px solid #ddd; padding: 8px; background-color: #4CAF50; color: #fff;">Trasformato</td>
+            <td data-label="Risultato" style="border: 1px solid #ddd; padding: 8px;">0-1</td>
+            <td data-label="Video" style="border: 1px solid #ddd; padding: 8px;">
+                <a href="https://www.youtube.com/watch?v=Zt0TIglFwnI&list=PLD64-55Vi5w6L21CnQ2FAzuEi3QAmWlDq&index=13" target="_blank" style="text-decoration: none; color: #000;">link</a>
+            </td>
+        </tr>
+        </tbody></table>
+
+        </div>
+    <div class="grafici">
+        <div class="grafici-container" style="display: flex; justify-content: space-around; margin-top: 50px; margin-bottom: 100px">
+            <div>
+            <h3> Rigori Calciati </h3>
+            <canvas id="graficoTotale"></canvas>
+            </div>
+        </div>
+        <div class="grafici-container" style="display: flex; justify-content: space-around; margin-top: 50px; margin-bottom: 100px">
+            <div>
+                <h3>Rigori ad Aprire</h3>
+                <canvas id="graficoAprire"></canvas>
+            </div>
+            <div>
+                <h3>Rigori a Chiudere</h3>
+                <canvas id="graficoChiudere"></canvas>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+        
+        <script>
+            var ctxTotal = document.getElementById('graficoTotale').getContext('2d');
+            var graficoTotal = new Chart(ctxTotal, {
+                type: 'pie',
+                data: {
+                    labels: ['Chiudere', 'Aprire'],
+                    datasets: [{
+                        label: 'Rigori Calciati',
+                        data: [7, 6],
+                        backgroundColor: ['#4CAF50', '#0000FF'],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            enabled : false
+                        },
+                        datalabels: {
+                            color: '#fff',
+                            font: {
+                                size: 18,  // Imposta la dimensione del font delle etichette
+                                weight: 'bold' // Puoi anche aggiungere altre proprietà come il peso del font
+                            },
+                            formatter: function(value, context) {
+                                var total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                var percent = Math.round((value / total) * 100);
+                                return value + ' (' + percent + '%)';
+                            }
+                        }
+                    }
+                },
+                plugins: [ChartDataLabels]
+            });
+        
+    
+            var ctxAprire = document.getElementById('graficoAprire').getContext('2d');
+            var graficoAprire = new Chart(ctxAprire, {
+                type: 'pie',
+                data: {
+                    labels: ['Gol', 'Sbagliati'],
+                    datasets: [{
+                        label: 'Rigori ad Aprire',
+                        data: [5, 1],
+                        backgroundColor: ['#4CAF50', '#F44336'],
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            enabled : false
+                        },
+                        datalabels: {
+                            color: '#fff',
+                            font: {
+                                size: 18,  // Imposta la dimensione del font delle etichette
+                                weight: 'bold' // Puoi anche aggiungere altre proprietà come il peso del font
+                            },
+                            formatter: function(value, context) {
+                                var total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                var percent = Math.round((value / total) * 100);
+                                return value + ' (' + percent + '%)';
+                            }
+                        }
+                    }
+                },
+                plugins: [ChartDataLabels]
+            });
+        
+        var ctxChiudere = document.getElementById('graficoChiudere').getContext('2d');
+        var graficoChiudere = new Chart(ctxChiudere, {
+            type: 'pie',
+            data: {
+                labels: ['Gol', 'Sbagliati'],
+                datasets: [{
+                    label: 'Rigori a Chiudere',
+                    data: [6, 1],
+                    backgroundColor: ['#4CAF50', '#F44336'],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        enabled : false
+                    },
+                    datalabels: {
+                        color: '#fff',
+                        font: {
+                            size: 18,  // Imposta la dimensione del font delle etichette
+                            weight: 'bold' // Puoi anche aggiungere altre proprietà come il peso del font
+                        },
+                        formatter: function(value, context) {
+                            var total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                            var percent = Math.round((value / total) * 100);
+                            return value + ' (' + percent + '%)';
+                        }
+                    }
+                }
+            },
+            plugins: [ChartDataLabels]
+        });
+        </script>
+    
+    </div>
+    </main>
+    <footer>
+        <p>&copy;Fabio Rossi e Umberto Di Giacomo</p>
+    </footer>
+</body>
+</html>

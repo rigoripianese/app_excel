@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ nome_squadra_completo }} - Giocatori</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style_teams.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/logo.webp') }}" type="image/x-icon">
+    <script>
+        // Check if the user is authenticated
+        window.onload = function() {
+            const isAuthenticated = sessionStorage.getItem('isAuthenticated');
+            if (!isAuthenticated) {
+                // Redirect to login page if not authenticated
+                const redirectUrl = `{{ url_for('static', filename='campionato/squadre/' + nome_squadra + '/' + nome_squadra + '.html') }}`;
+                window.location.href = `{{ url_for('static', filename='login/login.html') }}?redirect=${encodeURIComponent(redirectUrl)}`;
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo.webp') }}" alt="Logo Pianese">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('static', filename='index.html') }}">Torna alla Home</a></li>
+                <li><a href="{{ url_for('static', filename='campionato/campionato.html') }}">Campionato</a></li>
+                <li><a href="{{ url_for('static', filename='coppa/coppa.html') }}">Coppa</a></li>
+                <li><a href="{{ url_for('static', filename='calendario/calendario.html') }}">Calendario</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="logosquadra">
+            <img src="{{ url_for('static', filename='images/loghi/' + nome_squadra + '.png') }}" alt="Logo {{ nome_squadra }}" style="width: 16%;">
+        </div>
+        <h1>Giocatori {{ nome_squadra_completo }}</h1>
+        <div class="players-container">
+            <!-- Inserire qui il contenuto dinamico relativo ai giocatori -->
+        </div>
+    </main>
+    <footer>
+        <p>&copy; Fabio Rossi e Umberto Di Giacomo</p>
+    </footer>
+</body>
+</html>

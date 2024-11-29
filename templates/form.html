@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gestione Squadra</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script>
+    let nextGiocatoreId = 0; // Contatore globale per gli ID dei giocatori
+
+    function aggiungiGiocatore() {
+        const container = document.getElementById('giocatori');
+        const id = nextGiocatoreId++; // ID univoco per il giocatore
+
+        const giocatoreDiv = document.createElement('div');
+        giocatoreDiv.className = 'giocatore';
+        giocatoreDiv.id = `giocatore-${id}`;
+
+        giocatoreDiv.innerHTML = `
+            <h3>Giocatore</h3>
+            <input type="text" name="nome_giocatore" placeholder="Nome Giocatore" required>
+            <input type="text" name="cognome" placeholder="Cognome" required>
+            <select name="piede">
+                <option value="Destro">Destro</option>
+                <option value="Sinistro">Sinistro</option>
+            </select>
+            <input type="number" name="numero" placeholder="Numero Maglia" required>
+            <div id="tiri-${id}">
+                <h4>Tiri</h4>
+            </div>
+            <button type="button" class="btn btn-secondary" onclick="aggiungiTiro(${id})">Aggiungi Tiro</button>
+            <button type="button" class="btn btn-danger" onclick="rimuoviGiocatore(${id})">Rimuovi Giocatore</button>
+            <hr>
+        `;
+        container.appendChild(giocatoreDiv);
+    }
+
+    function aggiungiTiro(id) {
+        const container = document.getElementById(`tiri-${id}`);
+        if (!container) {
+            console.error(`Container per i tiri non trovato per il giocatore con ID ${id}`);
+            return;
+        }
+
+        const tiroDiv = document.createElement('div');
+        tiroDiv.className = 'tiro';
+        tiroDiv.innerHTML = `
+            <h5>Tiro</h5>
+            <input type="text" name="partita-${id}" placeholder="Partita" required>
+            <input type="number" name="minuto-${id}" placeholder="Minuto" required>
+            <select name="esito-${id}">
+                <option value="1">Trasformato</option>
+                <option value="0">Sbagliato</option>
+            </select>
+            <input type="text" name="risultato-${id}" placeholder="Risultato" required>
+            <input type="url" name="link-${id}" placeholder="Link Video">
+            <div class="porta-container">
+                <img src="{{ url_for('static', filename='images/porta.png') }}" alt="Porta" class="porta" onclick="selezionaPosizione(event, ${id})">
+                <p>Clicca sulla porta per selezionare la posizione del tiro</p>
+            </div>
+            <input type="number" name="top-${id}" placeholder="Top (0-10)" step="0.1" required readonly>
+            <input type="number" name="left-${id}" placeholder="Left (0-30)" step="0.1" required readonly>
+            <button type="button" class="btn btn-danger btn-sm" onclick="rimuoviTiro(this)">Rimuovi Tiro</button>
+            <hr>
+        `;
+        container.appendChild(tiroDiv);
+    }
+
+    function selezionaPosizione(event, id) {
+        const img = event.target;
+        const rect = img.getBoundingClientRect();
+
+        // Calcola la posizione relativa all'immagine
+        const x = event.clientX - rect.left; // posizione X relativa
+        const y = event.clientY - rect.top;  // posizione Y relativa
+
+        // Normalizza le coordinate a una scala predefinita
+        const top = (y / rect.height * 10).toFixed(1); // 0-10
+        const left = (x / rect.width * 30).toFixed(1); // 0-30
+
+        // Trova i campi 'top' e 'left' corrispondenti al tiro
+        const tiroDiv = event.target.closest('.tiro');
+        const topField = tiroDiv.querySelector(`input[name="top-${id}"]`);
+        const leftField = tiroDiv.querySelector(`input[name="left-${id}"]`);
+
+        if (topField && leftField) {
+            topField.value = top;
+            leftField.value = left;
+        }
+    }
+
+    function rimuoviTiro(button) {
+        const tiroDiv = button.parentNode;
+        tiroDiv.parentNode.removeChild(tiroDiv);
+    }
+
+    function rimuoviGiocatore(id) {
+        const giocatoreDiv = document.getElementById(`giocatore-${id}`);
+        if (giocatoreDiv) {
+            giocatoreDiv.parentNode.removeChild(giocatoreDiv);
+        }
+    }
+    </script>
+    <style>
+        .porta-container {
+            position: relative;
+            width: 300px; /* Regola la larghezza della porta */
+            margin: 10px 0;
+        }
+        .porta {
+            width: 100%;
+            height: auto;
+            cursor: crosshair;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gestione Squadra</h1>
+        <form method="post">
+            <div class="form-group">
+                <label for="nome_squadra">Nome Squadra:</label>
+                <input type="text" id="nome_squadra" name="nome_squadra" placeholder="Nome Squadra" required>
+            </div>
+            <div class="form-group">
+                <label for="nome_squadra_completo">Nome Squadra Completo:</label>
+                <input type="text" id="nome_squadra_completo" name="nome_squadra_completo" placeholder="Nome Squadra Completo" required>
+            </div>
+
+            <div id="giocatori"></div>
+            <button type="button" class="btn btn-secondary" onclick="aggiungiGiocatore()">Aggiungi Giocatore</button>
+            <button type="submit" class="btn btn-primary">Genera File</button>
+        </form>
+    </div>
+</body>
+</html>
