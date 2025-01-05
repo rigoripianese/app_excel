@@ -34,11 +34,15 @@
     </header>
     <main>
         <h1>{{ nome_completo }}</h1>
-        <img src="{{ url_for('static', filename='images/' + nome_giocatore + '.webp') }}" style="width: 5%;">
+        <img src="{{ nome_giocatore }}.webp" style="width: 5%;">
         <div class="container">
             <h2 style="text-align: center; font-weight: bolder;">
                 Piede di Calcio: {{ piede_giocatore }}
             </h2>
+        </div>
+        <div class="clutch-container">
+            <h2>Valore Clutch</h2>
+            <canvas id="clutch-chart" width="200" height="200"></canvas>
         </div>
         <div class="back_arrow">
             <p style="margin-bottom: 40px;">Clicca la freccia per tornare alla selezione dei giocatori</p>
@@ -49,18 +53,69 @@
         <div class="goal">
             <img src="{{ url_for('static', filename='images/porta.png') }}" alt="Goal" width="730" height="244">
             <div id="balls-container" class="balls-container">
-                {{ balls_html }}
+                {{ balls_html|safe }}
             </div>
         </div>
         <div class="list_of_penalties">
-                {{ list_html }}
+                {{ list_html|safe }}
         </div>
         <div class="grafici">
-            {{ grafici_html }}
+            {{ grafici_html|safe }}
         </div>
     </main>
     <footer>
         <p>&copy; Fabio Rossi e Umberto Di Giacomo</p>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <script>
+        const clutchValue = {{ clutch_value }};
+        const clutchColor = clutchValue < 40 ? 'red' : (clutchValue < 70 ? 'yellow' : 'green');
+
+        const ctx = document.getElementById('clutch-chart').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                datasets: [{
+                    data: [clutchValue, 100 - clutchValue],
+                    backgroundColor: [clutchColor, '#e0e0e0'],
+                    borderWidth: 1,
+                }]
+            },
+            options: {
+                plugins: {
+                    tooltip: { enabled: false },
+                    legend: { display: false },
+                    datalabels: {
+                        display: false, // Disabilitiamo le etichette standard
+                    }
+                },
+                cutout: '80%', // Rende il grafico a ciambella
+                responsive: true,
+                maintainAspectRatio: true,
+            },
+            plugins: [{
+                // Plugin personalizzato per aggiungere il valore al centro del grafico
+                id: 'clutchLabel',
+                beforeDraw: (chart) => {
+                    const { width } = chart;
+                    const { height } = chart;
+                    const ctx = chart.ctx;
+                    ctx.restore();
+                    const fontSize = (height / 100).toFixed(2); // Dimensione dinamica in base al grafico
+                    ctx.font = `${fontSize}em Arial`;
+                    ctx.textBaseline = 'middle';
+
+                    const text = `${clutchValue.toFixed(1)}%`;
+                    const textX = Math.round((width - ctx.measureText(text).width) / 2);
+                    const textY = height / 2;
+
+                    ctx.fillStyle = clutchColor;
+                    ctx.fillText(text, textX, textY);
+                    ctx.save();
+                }
+            }]
+        });
+    </script>
 </body>
 </html>

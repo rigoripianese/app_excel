@@ -38,7 +38,7 @@
         </div>
         <h1>Giocatori {{ nome_squadra_completo }}</h1>
         <div class="players-container">
-            <!-- Inserire qui il contenuto dinamico relativo ai giocatori -->
+            {{players|safe}}
         </div>
     </main>
     <footer>

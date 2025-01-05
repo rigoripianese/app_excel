@@ -3,16 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Milan Futuro - Giocatori</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="../../../images/logo.webp" type="image/x-icon">
+    <title>AC Milan - Giocatori</title>
+    <link rel="stylesheet" href="/static/css/style_teams.css">
+    <link rel="icon" href="/static/images/logo.webp" type="image/x-icon">
     <script>
         // Check if the user is authenticated
         window.onload = function() {
             const isAuthenticated = sessionStorage.getItem('isAuthenticated');
             if (!isAuthenticated) {
                 // Redirect to login page if not authenticated
-                window.location.href = '../../../login/login.html?redirect=../campionato/squadre/milan/milan.html';
+                const redirectUrl = `/static/campionato/squadre/Milan/Milan.html`;
+                window.location.href = `/static/login/login.html?redirect=${encodeURIComponent(redirectUrl)}`;
             }
         }
     </script>
@@ -20,37 +21,28 @@
 <body>
     <header>
         <div class="logo">
-            <img src="../../../images/logo.webp" alt="Logo Pianese">
+            <img src="/static/images/logo.webp" alt="Logo Pianese">
         </div>
         <nav>
             <ul>
-                <li><a href="../../../index.html">Torna alla Home</a></li>
-                <li><a href="../../campionato.html">Campionato</a></li>
-                <li><a href="../../../coppa/coppa.html">Coppa</a></li>
-                <li><a href="../../../calendario/calendario.html">Calendario</a></li>
+                <li><a href="/static/index.html">Torna alla Home</a></li>
+                <li><a href="/static/campionato/campionato.html">Campionato</a></li>
+                <li><a href="/static/coppa/coppa.html">Coppa</a></li>
+                <li><a href="/static/calendario/calendario.html">Calendario</a></li>
             </ul>
         </nav>
     </header>
     <main>
         <div class="logosquadra">
-            <img src="../../loghi/milan.png" alt="Logo Milan" style="width: 8%;">
+            <img src="/static/images/loghi/Milan.png" alt="Logo Milan" style="width: 16%;">
         </div>
-        <h1>Giocatori Milan Futuro</h1>
+        <h1>Giocatori AC Milan</h1>
         <div class="players-container">
-            <a href="alesi/alesi.html" class="player-button">Alesi 8</a>
-            <a href="bartesaghi/bartesaghi.html" class="player-button">Bartesaghi 4</a>
-            <a href="camarda/camarda.html" class="player-button">Camarda 9</a>
-            <a href="coubis/coubis.html" class="player-button">Coubis 15</a>
-            <a href="liberali/liberali.html" class="player-button">Liberali 10</a>
-            <a href="longo/longo.html" class="player-button">Longo 7</a>
-            <a href="sandri/sandri.html" class="player-button">Sandri 21</a>
-            <a href="traore/traore.html" class="player-button">Traore 28</a>
-            <a href="vos/vos.html" class="player-button">Vos 55</a>
-            <a href="zeroli/zeroli.html" class="player-button">Zeroli 18</a>
+            <a href="Zion/Zion.html" class="player-button">Williamson 9</a>
         </div>
     </main>
     <footer>
-        <p>&copy;Fabio Rossi e Umberto Di Giacomo</p>
+        <p>&copy; Fabio Rossi e Umberto Di Giacomo</p>
     </footer>
 </body>
 </html>

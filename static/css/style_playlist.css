@@ -217,23 +217,6 @@ footer {
         height: 90%;
     }
 }
-.clutch-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; /* Allinea il contenuto al centro */
-    margin-top: 20px;
-}
-
-#clutch-chart {
-    max-width: 200px;
-    max-height: 200px;
-    position: relative;
-}
-
-.chartjs-render-monitor {
-    position: relative;
-}
 
 @media (max-width: 480px) {
     .penalty-table {
@@ -243,7 +226,7 @@ footer {
     .penalty-table th, .penalty-table td {
         padding: 6px; /* Riduci ulteriormente il padding delle celle */
     }
-    
+
     .grafici-container div {
         width: 200px; /* Riduci ulteriormente la dimensione dei grafici per schermi molto piccoli */
     }
@@ -288,8 +271,54 @@ footer {
     .goal {
         margin-bottom: 40px; /* Aumenta lo spazio sotto l'immagine della porta */
     }
-    
+
     .relazione{
         margin-bottom: 40px;
     }
+}
+
+.layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.video-container {
+    flex: 2;
+    max-width: 70%;
+}
+
+.playlist {
+    flex: 1;
+    max-width: 30%;
+    background-color: #ffffff;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.playlist ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.playlist li {
+    margin: 10px 0;
+}
+
+.playlist li a {
+    text-decoration: none;
+    color: #333;
+    transition: color 0.3s;
+}
+
+.playlist li a:hover {
+    color: #007bff;
+}
+
+.playlist li.active a {
+    font-weight: bold;
+    color: #007bff;
 }

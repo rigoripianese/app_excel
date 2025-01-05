@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campionato - U.S. Pianese</title>
-    <link rel="icon" href="../images/logo.webp" type="image/x-icon">
-    <link rel="stylesheet" href="styles.css">
-    <script>
-        // Check if the user is authenticated
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Campionato - U.S. Pianese
+  </title>
+  <link href="../images/logo.webp" rel="icon" type="image/x-icon"/>
+  <link href="styles.css" rel="stylesheet"/>
+  <script>
+   // Check if the user is authenticated
         window.onload = function() {
             const isAuthenticated = sessionStorage.getItem('isAuthenticated');
             if (!isAuthenticated) {
@@ -15,105 +17,152 @@
                 window.location.href = '../login/login.html?redirect=../campionato/campionato.html';
             }
         }
-    </script>
-</head>
-<body>
-    <header>
-        <div class="logo">
-            <img src="../images/logo.webp" alt="Logo Pianese"> <!-- Sostituisci "logo.png" con il tuo file -->
-        </div>
-        <nav>
-            <ul>
-                <li><a href="../index.html">Torna alla Home</a></li>
-                <li><a href="campionato.html">Campionato</a></li>
-                <li><a href="../coppa/coppa.html">Coppa</a></li>
-                <li><a href="../calendario/calendario.html">Calendario</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <h1>Squadre del Campionato</h1>
-        <div class="teams-container">
-            <button class="team-button" onclick="window.location.href='squadre/carpi/carpi.html'">
-                <img src="loghi/carpi.png" alt="AC Carpi">
-                <span>AC Carpi</span>
-            </button>
-            <button class="team-button" onclick="window.location.href='squadre/perugia/perugia.html'">
-                <img src="loghi/perugia.png" alt="AC Perugia Calcio">
-                <span>AC Perugia Calcio</span>
-            </button>            
-            <button class="team-button" onclick="window.location.href='squadre/gubbio/gubbio.html'">
-                <img src="loghi/gubbio.png" alt="AS Gubbio 1910">
-                <span>AS Gubbio 1910</span>
-            </button>
-            <button class="team-button" onclick="window.location.href='squadre/ascoli/ascoli.html'">
-                <img src="loghi/ascoli.png" alt="Ascoli Calcio">
-                <span>Ascoli Calcio</span>
-            </button>
-            <button class="team-button" onclick="window.location.href='squadre/campobasso/campobasso.html'">
-                <img src="loghi/campobasso.png" alt="Campobasso FC">
-                <span>Campobasso FC</span>
-            </button>
-            <button class="team-button" onclick="window.location.href='squadre/pescara/pescara.html'">
-                <img src="loghi/pescara.png" alt="Delfino Pescara 1936">
-                <span>Delfino Pescara 1936</span>
-            </button>
-            <button class="team-button" onclick="window.location.href='squadre/legnago/legnago.html'">
-                <img src="loghi/legnago.png" alt="FC Legnago Salus">
-                <span>FC Legnago Salus</span>
-            </button>
-            <button class="team-button" onclick="window.location.href='squadre/lucchese/lucchese.html'">
-                <img src="loghi/lucchese.png" alt="Lucchese 1905">
-                <span>Lucchese 1905</span>
-            </button>
-            <button class="team-button" onclick="window.location.href='squadre/milan/milan.html'">
-                <img src="loghi/milan.png" alt="Milan Futuro">
-                <span>Milan Futuro</span>
-            </button>
-            <button class="team-button" onclick="window.location.href='squadre/pineto/pineto.html'">
-                <img src="loghi/pineto.png" alt="Pineto Calcio">
-                <span>Pineto Calcio</span>
-            </button>
-            <button class="team-button" onclick="window.location.href='squadre/rimini/rimini.html'">
-                <img src="loghi/rimini.png" alt="Rimini FC">
-                <span>Rimini FC</span>
-            </button>
-            <button class="team-button" onclick="window.location.href='squadre/spal/spal.html'">
-                <img src="loghi/spal.png" alt="SPAL">
-                <span>SPAL</span>
-            </button>
-            <button class="team-button">
-                <img src="loghi/arezzo.png" alt="SS Arezzo">
-                <span>SS Arezzo</span>
-            </button>
-            <button class="team-button">
-                <img src="loghi/ternana.png" alt="Ternana Calcio">
-                <span>Ternana Calcio</span>
-            </button>
-            <button class="team-button" onclick="window.location.href='squadre/torres/torres.html'">
-                <img src="loghi/torres.png" alt="Torres">
-                <span>Torres</span>
-            </button>
-            <button class="team-button" onclick="window.location.href='squadre/pontedera/pontedera.html'">
-                <img src="loghi/pontedera.png" alt="US Città di Pontedera">
-                <span>US Cittá di Pontedera</span>
-            </button>
-            <button class="team-button" onclick="window.location.href='squadre/levante/levante.html'">
-                <img src="loghi/sestrilevante.png" alt="US Sestri Levante">
-                <span>US Sestri Levante</span>
-            </button>
-            <button class="team-button" onclick="window.location.href='squadre/entella/entella.html'">
-                <img src="loghi/entella.png" alt="Virtus Entella">
-                <span>Virtus Entella</span>
-            </button>
-            <button class="team-button" onclick="window.location.href='squadre/vispesaro/vispesaro.html'">
-                <img src="loghi/vispesaro.png" alt="Vis Pesaro 1898">
-                <span>Vis Pesaro 1898</span>
-            </button>
-        </div>
-    </main>
-    <footer>
-        <p>&copy;Fabio Rossi e Umberto Di Giacomo</p>
-    </footer>
-</body>
+  </script>
+ </head>
+ <body>
+  <header>
+   <div class="logo">
+    <img alt="Logo Pianese" src="../images/logo.webp"/>
+    <!-- Sostituisci "logo.png" con il tuo file -->
+   </div>
+   <nav>
+    <ul>
+     <li>
+      <a href="../index.html">
+       Torna alla Home
+      </a>
+     </li>
+     <li>
+      <a href="campionato.html">
+       Campionato
+      </a>
+     </li>
+     <li>
+      <a href="../coppa/coppa.html">
+       Coppa
+      </a>
+     </li>
+     <li>
+      <a href="../calendario/calendario.html">
+       Calendario
+      </a>
+     </li>
+    </ul>
+   </nav>
+  </header>
+  <main>
+   <h1>
+    Squadre del Campionato
+   </h1>
+   <div class="teams-container">
+    <button class="team-button" onclick="window.location.href='squadre/carpi/carpi.html'">
+     <img alt="AC Carpi" src="loghi/carpi.png"/>
+     <span>
+      AC Carpi
+     </span>
+    </button>
+    <button class="team-button" onclick="window.location.href='squadre/perugia/perugia.html'">
+     <img alt="AC Perugia Calcio" src="loghi/perugia.png"/>
+     <span>
+      AC Perugia Calcio
+     </span>
+    </button>
+    <button class="team-button" onclick="window.location.href='squadre/gubbio/gubbio.html'">
+     <img alt="AS Gubbio 1910" src="loghi/gubbio.png"/>
+     <span>
+      AS Gubbio 1910
+     </span>
+    </button>
+    <button class="team-button" onclick="window.location.href='squadre/ascoli/ascoli.html'">
+     <img alt="Ascoli Calcio" src="loghi/ascoli.png"/>
+     <span>
+      Ascoli Calcio
+     </span>
+    </button>
+    <button class="team-button" onclick="window.location.href='squadre/campobasso/campobasso.html'">
+     <img alt="Campobasso FC" src="loghi/campobasso.png"/>
+     <span>
+      Campobasso FC
+     </span>
+    </button>
+    <button class="team-button" onclick="window.location.href='squadre/pescara/pescara.html'">
+     <img alt="Delfino Pescara 1936" src="loghi/pescara.png"/>
+     <span>
+      Delfino Pescara 1936
+     </span>
+    </button>
+    <button class="team-button" onclick="window.location.href='squadre/legnago/legnago.html'">
+     <img alt="FC Legnago Salus" src="loghi/legnago.png"/>
+     <span>
+      FC Legnago Salus
+     </span>
+    </button>
+    <button class="team-button" onclick="window.location.href='squadre/lucchese/lucchese.html'">
+     <img alt="Lucchese 1905" src="loghi/lucchese.png"/>
+     <span>
+      Lucchese 1905
+     </span>
+    </button>
+    <button class="team-button" onclick="window.location.href='squadre/milan/milan.html'">
+     <img alt="Milan Futuro" src="loghi/milan.png"/>
+     <span>
+      Milan Futuro
+     </span>
+    </button>
+    <button class="team-button" onclick="window.location.href='squadre/pineto/pineto.html'">
+     <img alt="Pineto Calcio" src="loghi/pineto.png"/>
+     <span>
+      Pineto Calcio
+     </span>
+    </button>
+    <button class="team-button" onclick="window.location.href='squadre/rimini/rimini.html'">
+     <img alt="Rimini FC" src="loghi/rimini.png"/>
+     <span>
+      Rimini FC
+     </span>
+    </button>
+    <button class="team-button" onclick="window.location.href='squadre/spal/spal.html'">
+     <img alt="SPAL" src="loghi/spal.png"/>
+     <span>
+      SPAL
+     </span>
+    </button>
+    <button class="team-button" onclick="window.location.href='squadre/torres/torres.html'">
+     <img alt="Torres" src="loghi/torres.png"/>
+     <span>
+      Torres
+     </span>
+    </button>
+    <button class="team-button" onclick="window.location.href='squadre/pontedera/pontedera.html'">
+     <img alt="US Città di Pontedera" src="loghi/pontedera.png"/>
+     <span>
+      US Cittá di Pontedera
+     </span>
+    </button>
+    <button class="team-button" onclick="window.location.href='squadre/levante/levante.html'">
+     <img alt="US Sestri Levante" src="loghi/sestrilevante.png"/>
+     <span>
+      US Sestri Levante
+     </span>
+    </button>
+    <button class="team-button" onclick="window.location.href='squadre/entella/entella.html'">
+     <img alt="Virtus Entella" src="loghi/entella.png"/>
+     <span>
+      Virtus Entella
+     </span>
+    </button>
+    <button class="team-button" onclick="window.location.href='squadre/vispesaro/vispesaro.html'">
+     <img alt="Vis Pesaro 1898" src="loghi/vispesaro.png"/>
+     <span>
+      Vis Pesaro 1898
+     </span>
+    </button>
+   </div>
+  </main>
+  <footer>
+   <p>
+    ©Fabio Rossi e Umberto Di Giacomo
+   </p>
+  </footer>
+ </body>
 </html>
