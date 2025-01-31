@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - U.S. Pianese</title>
+    <title>Login - FC Campobasso</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="../images/logo.webp" type="image/x-icon">
     <script>
         // Valid credentials with hashed passwords (hashed using SHA-256)
         const validCredentials = [
-            { username: 'Boer', password: '29f5c7c16e07d8fbc73eef3e792df94f6445f416cfa3c529fa15d49ca2c2571b' },
-            { username: 'Filippis', password: '2c6153171c4c5fc52194037c82163c74590389ee055c9a171b209c7212500124' },
-            { username: 'Terzo', password: '969b95fbdedc3470cd7b8aa087478ce82efd29df5b3ee63d0c8b6c5832e28ed1' },
-            { username: 'Jack', password: 'f2a5feeaf0b26f69a175bf32d935e5a92f575d357a5944660c74d84a762b66d4' },
-            { username: 'Staff', password: 'a7aa0bbc3cd79113d2107f6eea7c9a8424eff79fea461d56274d5824d1ec607c' },
-            { username: 'fabio', password: '9bba5c53a0545e0c80184b946153c9f58387e3bd1d4ee35740f29ac2e718b019' }
+            { username: 'fabio', password: '9bba5c53a0545e0c80184b946153c9f58387e3bd1d4ee35740f29ac2e718b019'},
+            { username: 'Neri Filippo', password: 'a40046ff3e381fe9b434a20fef4b75b5fc73e0be089e0784a58e6d205468ed54'},
+            { username: 'Forte Francesco', password: 'ee15884533194fee9ca379a896b7b8c653fce1d5fc7360cf14fa11e535fa7d0b'},
+            { username: 'Christian', password: '42b4049cdd1b6db60cc4d83375761b8511144b74c978e2da63154e9a5b5619de'},
+            { username: 'Staff', password: '5d7966dd78c8ea6e04a0c7e16b6ed5e850bd826c7bc84357acba8d5205e1d65f'}
         ];
 
         async function hashPassword(password) {
@@ -49,7 +48,7 @@
 
                 // Get the redirect URL from the query parameter
                 const redirectUrl = getQueryParameter('redirect') || 'sito_web/index.html';
-                
+
                 window.location.href = redirectUrl; // Redirect to the chosen page
             } else {
                 alert('Nome utente o password non validi. Riprova.');
@@ -60,7 +59,7 @@
 <body>
     <header>
         <div class="logo">
-            <img src="../images/logo.webp" alt="Logo Pianese">
+            <img src="../images/campobasso.png" alt="Logo">
         </div>
         <nav>
             <ul>

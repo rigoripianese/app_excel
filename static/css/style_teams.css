@@ -1,3 +1,4 @@
+/* Resetta stile predefinito */
 * {
     margin: 0;
     padding: 0;
@@ -10,11 +11,12 @@ body {
     color: #333;
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Ensure body fills the viewport height */
+    min-height: 100vh; /* Assicura che il body riempia l'altezza del viewport */
 }
 
+/* Header */
 header {
-    background-color: #000;
+    background: linear-gradient(90deg, #ff0000 50%, #002366 50%);
     color: #fff;
     padding: 20px 0;
     text-align: center;
@@ -26,6 +28,7 @@ header {
     margin-bottom: 20px; /* Spazio tra il logo e il menu */
 }
 
+/* Navbar */
 nav ul {
     list-style: none;
     padding: 0;
@@ -44,14 +47,16 @@ nav ul li a {
     text-decoration: none;
     font-weight: bold;
     padding: 10px 20px; /* Aggiunge spazio interno ai link */
+    border-radius: 5px;
     transition: background-color 0.3s, color 0.3s; /* Transizione per l'effetto hover */
 }
 
 nav ul li a:hover {
-    background-color: #fff;
-    color: #000;
+    background-color: #ff0000; /* Rosso acceso */
+    color: #fff;
 }
 
+/* Main */
 main {
     padding: 20px;
     text-align: center;
@@ -64,9 +69,10 @@ main {
 }
 
 h1 {
-    color: #000000; /* Sostituisci con il colore sociale */
+    color: #002366; /* Blu scuro */
 }
 
+/* Contenitore delle squadre */
 .teams-container {
     display: flex;
     flex-wrap: wrap;
@@ -76,7 +82,7 @@ h1 {
 }
 
 .team-button {
-    background-color: #000;
+    background-color: #002366; /* Blu scuro */
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -84,7 +90,7 @@ h1 {
     text-align: center;
     width: 150px;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s; /* Transizione per l'effetto hover */
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .team-button img {
@@ -99,20 +105,21 @@ h1 {
 }
 
 .team-button:hover {
-    background-color: #fff;
-    color: #000;
+    background-color: #ff0000; /* Rosso acceso */
+    color: #fff;
 }
 
+/* Footer */
 footer {
-    background-color: #000;
+    background: linear-gradient(90deg, #002366 50%, #ff0000 50%);
     color: #fff;
     text-align: center;
     padding: 10px 0;
     width: 100%;
-    margin-top: auto; /* Ensure footer stays at the bottom */
+    margin-top: auto; /* Assicura che il footer rimanga in basso */
 }
 
-/* Stili per i bottoni dei giocatori */
+/* Contenitore dei giocatori */
 .players-container {
     display: flex;
     flex-wrap: wrap;
@@ -122,7 +129,7 @@ footer {
 }
 
 .player-button {
-    background-color: #000;
+    background-color: #002366; /* Blu scuro */
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -136,8 +143,100 @@ footer {
 }
 
 .player-button:hover {
-    background-color: #fff;
-    color: #000;
+    background-color: #ff0000; /* Rosso acceso */
+    color: #fff;
+}
+/* Bottone "+" fluttuante */
+.floating-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #000;
+    color: #fff;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    font-size: 32px;
+    text-align: center;
+    line-height: 60px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.floating-button:hover {
+    background-color: #333;
+}
+
+/* Contenitore del form nascosto */
+.form-popup {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    display: none; /* Nascosto inizialmente */
+    flex-direction: column;
+    align-items: center;
+    z-index: 1001;
+}
+
+/* Overlay per lo sfondo scuro quando il form è aperto */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none; /* Nascosto inizialmente */
+    z-index: 999;
+}
+
+/* Bottone di chiusura */
+.close-btn {
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    position: absolute;
+    top: -10px; /* Sposta il pulsante sopra il titolo */
+    right: -10px; /* Sposta il pulsante all'esterno del bordo */
+    z-index: 1002; /* Assicurati che sia sempre visibile */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.close-btn:hover {
+    background: darkred;
+}
+
+/* Stile generale del form */
+.form-popup input,
+.form-popup select,
+.form-popup button {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-popup button {
+    background: #000;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.form-popup button:hover {
+    background: #333;
 }
 
 /* Media Queries */

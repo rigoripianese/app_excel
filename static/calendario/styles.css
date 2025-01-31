@@ -1,3 +1,4 @@
+/* Resetta stile predefinito */
 * {
     margin: 0;
     padding: 0;
@@ -10,8 +11,9 @@ body {
     color: #333;
 }
 
+/* Header */
 header {
-    background-color: #000;
+    background: linear-gradient(90deg, #ff0000 50%, #002366 50%);
     color: #fff;
     padding: 20px 0;
     text-align: center;
@@ -22,6 +24,7 @@ header {
     margin-bottom: 20px; /* Spazio tra il logo e il menu */
 }
 
+/* Navbar */
 nav ul {
     list-style: none;
     padding: 0;
@@ -40,30 +43,23 @@ nav ul li a {
     text-decoration: none;
     font-weight: bold;
     padding: 10px 20px; /* Aggiunge spazio interno ai link */
+    border-radius: 5px;
     transition: background-color 0.3s, color 0.3s; /* Transizione per l'effetto hover */
 }
 
 nav ul li a:hover {
-    background-color: #fff;
-    color: #000;
+    background-color: #ff0000; /* Rosso acceso */
+    color: #fff;
 }
 
+/* Main */
 main {
     padding: 20px;
     text-align: center;
     margin-top: 20px; /* Spazio aggiuntivo sotto l'header */
 }
 
-footer {
-    background-color: #000;
-    color: #fff;
-    text-align: center;
-    padding: 10px 0;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-}
-
+/* Calendario */
 .calendar-container {
     display: flex;
     justify-content: center;
@@ -72,12 +68,13 @@ footer {
     max-width: 100%;
     margin: 0 auto;
     padding: 10px;
+    flex-wrap: wrap;
 }
 
 .month {
     display: flex;
     flex-direction: column;
-    border: 1px solid #333;
+    border: 2px solid #002366; /* Bordo blu scuro */
     padding: 10px;
     background-color: #fff;
     width: 100%;
@@ -94,21 +91,28 @@ footer {
     border: 1px solid #ddd;
     min-height: 100px;
     position: relative;
-    padding: 10px; /* Aumenta il padding per più spazio interno */
+    padding: 10px;
     box-sizing: border-box;
-    margin: 2px; /* Aggiungi margine tra i giorni */
+    margin: 2px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .day.match {
     background-color: #f9f9f9;
 }
 
+.day:hover {
+    background-color: #ff0000; /* Rosso acceso per hover */
+    color: #fff;
+}
+
 .date {
     font-weight: bold;
     margin-bottom: 5px;
+    color: #002366; /* Blu scuro */
 }
 
 .team {
@@ -126,17 +130,29 @@ footer {
 
 /* Stile per i pulsanti delle frecce */
 #prevMonth, #nextMonth {
-    background-color: #000;
+    background-color: #002366; /* Blu scuro */
     color: #fff;
     border: none;
     padding: 10px;
     cursor: pointer;
     font-size: 20px;
+    border-radius: 5px;
     transition: background-color 0.3s;
 }
 
 #prevMonth:hover, #nextMonth:hover {
-    background-color: #555;
+    background-color: #ff0000; /* Rosso acceso */
+}
+
+/* Footer */
+footer {
+    background: linear-gradient(90deg, #002366 50%, #ff0000 50%);
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
 }
 
 /* Media Queries */

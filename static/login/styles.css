@@ -1,3 +1,4 @@
+/* Resetta stile predefinito */
 * {
     margin: 0;
     padding: 0;
@@ -10,8 +11,9 @@ body {
     color: #333;
 }
 
+/* Header */
 header {
-    background-color: #000;
+    background: linear-gradient(90deg, #ff0000 50%, #002366 50%);
     color: #fff;
     padding: 20px 0;
     text-align: center;
@@ -22,6 +24,7 @@ header {
     margin-bottom: 20px;
 }
 
+/* Navbar */
 nav ul {
     list-style: none;
     padding: 0;
@@ -40,14 +43,17 @@ nav ul li a {
     text-decoration: none;
     font-weight: bold;
     padding: 10px 20px;
+    border-radius: 5px;
+    background-color: transparent;
     transition: background-color 0.3s, color 0.3s;
 }
 
 nav ul li a:hover {
-    background-color: #fff;
-    color: #000;
+    background-color: #ff0000; /* Rosso acceso */
+    color: #fff;
 }
 
+/* Main Content */
 main {
     padding: 20px;
     text-align: center;
@@ -58,8 +64,10 @@ main {
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 2px solid #002366; /* Bordo blu scuro */
 }
 
+/* Login Form */
 .login-form {
     display: flex;
     flex-direction: column;
@@ -77,6 +85,7 @@ main {
 label {
     font-weight: bold;
     margin-bottom: 5px;
+    color: #002366; /* Colore blu scuro */
 }
 
 input[type="text"],
@@ -85,10 +94,18 @@ input[type="password"] {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+    transition: border-color 0.3s;
 }
 
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: #ff0000; /* Rosso acceso al focus */
+    outline: none;
+}
+
+/* Pulsante di invio */
 button[type="submit"] {
-    background-color: #000;
+    background-color: #ff0000; /* Rosso acceso */
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -99,17 +116,19 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-    background-color: #333;
+    background-color: #002366; /* Blu scuro per hover */
 }
 
+/* Footer */
 footer {
-    background-color: #000;
+    background: linear-gradient(90deg, #002366 50%, #ff0000 50%);
     color: #fff;
     text-align: center;
     padding: 10px 0;
     position: fixed;
     width: 100%;
     bottom: 0;
+    font-size: 0.9rem;
 }
 
 /* Media Queries */

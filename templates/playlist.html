@@ -12,21 +12,26 @@
             <img src="/static/images/logo.webp" alt="Logo">
         </div>
     </header>
-    <main>
-        <h1>Video del Giocatore {{ nome_completo }}</h1>
-        <div class="video-container">
+    <main class="layout">
+        <section class="video-container">
+            <h1>Video del Giocatore {{ nome_completo }}</h1>
             <video id="videoPlayer" controls>
                 <source id="videoSource" src="{{ video_url }}" type="video/mp4">
                 Il tuo browser non supporta il video HTML5.
             </video>
-        </div>
-        <div class="playlist">
+        </section>
+        <aside class="playlist">
+            <h2>Playlist</h2>
             <ul>
                 {% for video in videos %}
-                <li><a href="{{ url_for('playlist', nome_squadra=nome_squadra, nome_giocatore=nome_giocatore, video_name=video) }}">{{ video }}</a></li>
+                <li class="{% if video_url.endswith(video) %}active{% endif %}">
+                    <a href="{{ url_for('playlist', nome_squadra=nome_squadra, nome_giocatore=nome_giocatore, video_name=video) }}">
+                        {{ video }}
+                    </a>
+                </li>
                 {% endfor %}
             </ul>
-        </div>
+        </aside>
     </main>
 </body>
 </html>

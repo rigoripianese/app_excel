@@ -1,3 +1,4 @@
+/* Resetta stile predefinito */
 * {
     margin: 0;
     padding: 0;
@@ -10,11 +11,12 @@ body {
     color: #333;
     display: flex;
     flex-direction: column;
-    min-height: 100vh; /* Ensure body fills the viewport height */
+    min-height: 100vh; /* Assicura che il body riempia l'altezza del viewport */
 }
 
+/* Header */
 header {
-    background-color: #000;
+    background: linear-gradient(90deg, #ff0000 50%, #002366 50%);
     color: #fff;
     padding: 20px 0;
     text-align: center;
@@ -26,6 +28,7 @@ header {
     margin-bottom: 20px; /* Spazio tra il logo e il menu */
 }
 
+/* Navbar */
 nav ul {
     list-style: none;
     padding: 0;
@@ -44,14 +47,16 @@ nav ul li a {
     text-decoration: none;
     font-weight: bold;
     padding: 10px 20px; /* Aggiunge spazio interno ai link */
+    border-radius: 5px;
     transition: background-color 0.3s, color 0.3s; /* Transizione per l'effetto hover */
 }
 
 nav ul li a:hover {
-    background-color: #fff;
-    color: #000;
+    background-color: #ff0000; /* Rosso acceso */
+    color: #fff;
 }
 
+/* Main Content */
 main {
     padding: 20px;
     text-align: center;
@@ -64,7 +69,7 @@ main {
 }
 
 h1 {
-    color: #000000; /* Sostituisci con il colore sociale */
+    color: #002366; /* Blu scuro */
 }
 
 .teams-container {
@@ -75,8 +80,9 @@ h1 {
     margin-top: 20px;
 }
 
+/* Pulsanti delle squadre */
 .team-button {
-    background-color: #000;
+    background-color: #002366; /* Blu scuro */
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -99,17 +105,18 @@ h1 {
 }
 
 .team-button:hover {
-    background-color: #fff;
-    color: #000;
+    background-color: #ff0000; /* Rosso acceso */
+    color: #fff;
 }
 
+/* Footer */
 footer {
-    background-color: #000;
+    background: linear-gradient(90deg, #002366 50%, #ff0000 50%);
     color: #fff;
     text-align: center;
     padding: 10px 0;
     width: 100%;
-    margin-top: auto; /* Ensure footer stays at the bottom */
+    margin-top: auto; /* Assicura che il footer rimanga in basso */
 }
 
 /* Media Queries */
@@ -147,7 +154,7 @@ footer {
     }
 
     nav ul li {
-        width: 100%; /* Fai sì che ogni elemento del menu prenda l'intera larghezza */
+        width: 100%; /* Ogni elemento del menu prende l'intera larghezza */
         text-align: center; /* Centra il testo dei link del menu */
     }
 

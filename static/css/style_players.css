@@ -1,3 +1,4 @@
+/* Resetta stile predefinito */
 * {
     margin: 0;
     padding: 0;
@@ -11,12 +12,13 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 100vh; /* Ensure body fills the viewport height */
+    min-height: 100vh;
     margin: 0;
 }
 
+/* Header */
 header {
-    background-color: #000;
+    background: linear-gradient(90deg, #ff0000 50%, #002366 50%);
     color: #fff;
     padding: 20px 0;
     text-align: center;
@@ -25,39 +27,42 @@ header {
 
 .logo img {
     max-width: 100px;
-    margin-bottom: 20px; /* Spazio tra il logo e il menu */
+    margin-bottom: 20px;
 }
 
+/* Navbar */
 nav ul {
     list-style: none;
     padding: 0;
     display: flex;
-    justify-content: center; /* Centra il menu */
-    gap: 15px; /* Spazio tra gli elementi del menu */
-    flex-wrap: wrap; /* Permette al menu di andare su più righe se necessario */
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
 }
 
 nav ul li {
-    flex: 1 1 auto; /* Permette ai link di ridimensionarsi in modo fluido */
+    flex: 1 1 auto;
 }
 
 nav ul li a {
     color: #fff;
     text-decoration: none;
     font-weight: bold;
-    padding: 10px 20px; /* Aggiunge spazio interno ai link */
-    transition: background-color 0.3s, color 0.3s; /* Transizione per l'effetto hover */
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 nav ul li a:hover {
-    background-color: #fff;
-    color: #000;
+    background-color: #ff0000;
+    color: #fff;
 }
 
+/* Main */
 main {
     padding: 20px;
     text-align: center;
-    margin-top: 20px; /* Spazio aggiuntivo sotto l'header */
+    margin-top: 20px;
     width: 100%;
     flex-grow: 1;
     display: flex;
@@ -67,9 +72,10 @@ main {
 
 h1 {
     align-self: center;
-    color: #000000; /* Sostituisci con il colore sociale */
+    color: #002366; /* Blu scuro */
 }
 
+/* Contenitore generale */
 .container {
     width: 100%;
     max-width: 100%;
@@ -79,50 +85,49 @@ h1 {
     flex-grow: 1;
 }
 
+/* Relazione */
 .relazione {
-    flex-grow: 1; /* Take up available space */
+    flex-grow: 1;
     width: 100%;
     text-align: justify;
     margin-bottom: 20px;
     overflow-wrap: break-word;
 }
 
+/* Goal container */
 .goal {
     align-self: center;
     position: relative;
     margin-top: 40px;
-    margin-bottom: 15px; /* Aggiungi spazio sotto l'immagine della porta */
-    width: 100%; /* Assicurati che l'elemento goal sia largo quanto il contenitore principale */
-    max-width: 730px; /* Limita la larghezza massima della porta */
+    margin-bottom: 15px;
+    width: 100%;
+    max-width: 730px;
 }
 
 .goal img {
     width: 100%;
-    height: auto; /* Mantiene le proporzioni dell'immagine */
+    height: auto;
 }
 
 .balls-container {
-    position: absolute; /* Position relative to the goal image */
+    position: absolute;
     top: 0;
     left: 0;
     width: 90%;
     height: 90%;
 }
 
-.ball-link {
-    position: absolute; /* Position balls relative to the container */
-}
-
+/* Palle */
 .ball {
-    position: absolute; /* Position balls relative to the container */
+    position: absolute;
     display: inline-block;
-    width: 30px;  /* Dynamic size relative to viewport width */
-    height: 30px; /* Dynamic size relative to viewport width */
+    width: 30px;
+    height: 30px;
 }
 
 .ball img {
-    width: 100%;  /* Ensure ball image fits the container */
-    height: auto; /* Maintain aspect ratio */
+    width: 100%;
+    height: auto;
 }
 
 .ball-number {
@@ -130,22 +135,24 @@ h1 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: red;
-    font-size: 22px;  /* Dynamic font size relative to viewport width */
+    color: #ff0000; /* Rosso acceso */
+    font-size: 22px;
     font-weight: bold;
-    pointer-events: none;  /* So that the number does not interfere with clicks */
+    pointer-events: none;
 }
 
+/* Contenitore grafici */
 .grafici-container div {
-    width: 400px; /* Riduci ulteriormente la dimensione dei grafici per schermi molto piccoli */
+    width: 400px;
 }
 
+/* Tabella */
 .penalty-table {
     width: 100%;
-    max-width: 800px; /* Limita la larghezza massima della tabella */
+    max-width: 800px;
     margin: 0 auto;
     border-collapse: collapse;
-    font-size: 1rem; /* Dimensione del testo normale */
+    font-size: 1rem;
 }
 
 .penalty-table th, .penalty-table td {
@@ -155,11 +162,13 @@ h1 {
 }
 
 .penalty-table tr:hover {
-    background-color: #f1f1f1;
+    background-color: #ff0000; /* Rosso acceso */
+    color: #fff;
 }
 
+/* Footer */
 footer {
-    background-color: #000;
+    background: linear-gradient(90deg, #002366 50%, #ff0000 50%);
     color: #fff;
     text-align: center;
     padding: 10px 0;
@@ -167,6 +176,178 @@ footer {
     width: 100%;
     bottom: 0;
 }
+/* Bottone "+" fluttuante */
+.floating-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #000;
+    color: #fff;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    font-size: 32px;
+    text-align: center;
+    line-height: 60px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.floating-button:hover {
+    background-color: #333;
+}
+
+/* Contenitore del form nascosto */
+.form-popup {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    display: none; /* Nascosto inizialmente */
+    flex-direction: column;
+    align-items: center;
+    z-index: 1001;
+}
+
+/* Overlay per lo sfondo scuro quando il form è aperto */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none; /* Nascosto inizialmente */
+    z-index: 999;
+}
+
+/* Bottone di chiusura */
+.close-btn {
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+    position: absolute;
+    top: -10px; /* Sposta il pulsante sopra il titolo */
+    right: -10px; /* Sposta il pulsante all'esterno del bordo */
+    z-index: 1002; /* Assicurati che sia sempre visibile */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.close-btn:hover {
+    background: darkred;
+}
+
+/* Stile generale del form */
+.form-popup input,
+.form-popup select,
+.form-popup button {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-popup button {
+    background: #000;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.form-popup button:hover {
+    background: #333;
+}
+/* Contenitore dei rigori */
+#rigori-container {
+    display: flex; /* Disposizione flessibile */
+    flex-wrap: wrap; /* Consente di andare a capo se necessario */
+    gap: 10px; /* Spazio tra i rigori */
+    max-height: 300px; /* Altezza massima del contenitore */
+    overflow-y: auto; /* Barra di scorrimento verticale */
+    padding: 10px;
+    border: 1px solid #ccc; /* Aggiunge un bordo per distinguere il contenitore */
+    background-color: #f9f9f9; /* Sfondo leggero */
+    border-radius: 5px; /* Angoli arrotondati */
+}
+
+/* Singolo rigore */
+.rigore {
+    display: flex;
+    flex-direction: column; /* Posiziona gli elementi in verticale */
+    width: 45%; /* Occupano metà dello spazio disponibile */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Scroll bar visibile solo se necessario */
+#rigori-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+#rigori-container::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+#rigori-container::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}
+/* Pulsante Rimuovi */
+.rigore .remove-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin-top: 10px;
+    align-self: flex-end; /* Allinea il pulsante a destra */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.rigore .remove-btn:hover {
+    background-color: darkred;
+}
+
+/* Input e select più larghi */
+.rigore input,
+.rigore select {
+    width: 90%; /* Rendi più larghi gli input e i select */
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Contenitore rigori */
+.rigore {
+    display: flex;
+    flex-direction: column; /* Disposizione verticale */
+    width: 100%; /* Occupa l'intera larghezza */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative; /* Per posizionare il pulsante di rimozione */
+    margin-bottom: 10px; /* Spazio tra i rigori */
+}
+
 
 /* Media Queries */
 @media (max-width: 768px) {

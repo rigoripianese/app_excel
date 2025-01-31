@@ -8,6 +8,8 @@ from bs4 import BeautifulSoup
 
 app = Flask(__name__)
 
+PASSWORD_CORRETTA = "tester"
+
 # Configurazione dell'ambiente Jinja2
 script_dir = os.getcwd()
 
@@ -633,10 +635,335 @@ def playlist(nome_squadra,nome_giocatore, video_name):
         video_url=video_url,
         nome_squadra=f"{nome_squadra}"
     )
-@app.route('/test')
-def test():
-    genera_pagine_html("roma","AS Roma")
-    return redirect(url_for('index'))
+@app.route('/squadra/<nome_squadra>')
+def pagina_squadra(nome_squadra):
+    squadra_dir = os.path.join('static/campionato/squadre', nome_squadra)
+    squadra_csv_path = os.path.join(squadra_dir, 'squadra.csv')
+
+    if not os.path.exists(squadra_csv_path):
+        return "Squadra non trovata", 404
+
+    squadra_df = pd.read_csv(squadra_csv_path)
+    giocatori_file = os.path.join(squadra_dir, 'giocatori.csv')
+    giocatori_df = pd.read_csv(giocatori_file)
+
+    players_html = "".join([
+        f'<a href="{url_for("pagina_giocatore", nome_squadra=nome_squadra, nome_giocatore=row["nome_giocatore"])}" class="player-button">{row["cognome"]} {row["numero"]}</a>'
+        for _, row in giocatori_df.iterrows()
+    ])
+
+    return render_template("template_squadra.html", nome_squadra=nome_squadra, players=players_html)
+
+
+@app.route('/giocatore/<nome_squadra>/<nome_giocatore>')
+def pagina_giocatore(nome_squadra, nome_giocatore):
+    giocatore_dir = os.path.join('static/campionato/squadre', nome_squadra, nome_giocatore)
+    excel_file = os.path.join(giocatore_dir, f'{nome_giocatore}.xlsx')
+
+    if not os.path.exists(excel_file):
+        return "Giocatore non trovato", 404
+
+    df = pd.read_excel(excel_file)
+
+    # Recupera nome completo e piede
+    giocatori_file = os.path.join(f'static/campionato/squadre/{nome_squadra}/giocatori.csv')
+    df_giocatori = pd.read_csv(giocatori_file)
+
+    giocatore_info = df_giocatori[df_giocatori['nome_giocatore'] == nome_giocatore].iloc[0]
+    nome_completo = f"{giocatore_info['nome']} {giocatore_info['cognome']}"
+    piede = giocatore_info['piede']
+
+    # Recupera immagine del giocatore
+    immagine_giocatore = f"{nome_giocatore}.webp"
+
+    # Genera la lista dei palloni con link ai video o ai link esterni
+    balls_html = ""
+    table_html = """
+    <table class="penalty-table" style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Partita</th>
+                <th>Minuto</th>
+                <th>Esito</th>
+                <th>Risultato</th>
+                <th>Video</th>
+            </tr>
+        </thead>
+        <tbody>
+    """
+
+    aprire, chiudere, aprire_gol, chiudere_gol = 0, 0, 0, 0
+
+    for i, row in df.iterrows():
+        esito_color = '#4CAF50' if row['Esito'] == 1 else '#F44336'
+        esito_text = 'Trasformato' if row['Esito'] == 1 else 'Sbagliato'
+        ball_img = "football.png" if row['Esito'] == 1 else "missed.png"
+
+        link = row['Link'] if pd.notna(row['Link']) else url_for('playlist', nome_squadra=nome_squadra, nome_giocatore=nome_giocatore, video_name=row['Video'])
+
+        balls_html += f"""
+        <a href="{link}" target="_blank">
+            <div class="ball" style="top: {row['Top'] / 10 * 100}%; left: {row['Left'] / 30 * 100}%;">
+                <img src="{url_for('static', filename='images/' + ball_img)}" alt="Football">
+                <span class="ball-number" style="color: black;">{i + 1}</span>
+            </div>
+        </a>
+        """
+
+        table_html += f"""
+        <tr>
+            <td>{i + 1}</td>
+            <td>{row['Partita']}</td>
+            <td>{row['Minuto']}</td>
+            <td style="background-color: {esito_color}; color: white;">{esito_text}</td>
+            <td>{row['Risultato']}</td>
+            <td><a href="{link}" target="_blank">link</a></td>
+        </tr>
+        """
+
+        # Conta rigori a "chiudere" e "aprire"
+        if row['Left'] <= 15:
+            chiudere += 1
+            chiudere_gol += row['Esito']
+        else:
+            aprire += 1
+            aprire_gol += row['Esito']
+
+    table_html += "</tbody></table>"
+
+    # Generazione dati per i grafici
+    grafici_html = f"""
+    <script>
+        var ctxTotal = document.getElementById('graficoTotale').getContext('2d');
+        new Chart(ctxTotal, {{
+            type: 'pie',
+            data: {{
+                labels: ['Chiudere', 'Aprire'],
+                datasets: [{{
+                    data: [{chiudere}, {aprire}],
+                    backgroundColor: ['#4CAF50', '#0000FF'],
+                }}]
+            }},
+            options: {{
+                responsive: true,
+                plugins: {{
+                    legend: {{ position: 'top' }},
+                    tooltip: {{ enabled: false }},
+                    datalabels: {{
+                        color: '#fff',
+                        font: {{ size: 18, weight: 'bold' }},
+                        formatter: (value, context) => {{
+                            var total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                            return value + ' (' + Math.round((value / total) * 100) + '%)';
+                        }}
+                    }}
+                }}
+            }},
+            plugins: [ChartDataLabels]
+        }});
+
+        var ctxAprire = document.getElementById('graficoAprire').getContext('2d');
+        new Chart(ctxAprire, {{
+            type: 'pie',
+            data: {{
+                labels: ['Gol', 'Sbagliati'],
+                datasets: [{{
+                    data: [{aprire_gol}, {aprire - aprire_gol}],
+                    backgroundColor: ['#4CAF50', '#F44336'],
+                }}]
+            }},
+            options: {{
+                responsive: true,
+                plugins: {{
+                    legend: {{ position: 'top' }},
+                    tooltip: {{ enabled: false }},
+                    datalabels: {{
+                        color: '#fff',
+                        font: {{ size: 18, weight: 'bold' }},
+                        formatter: (value, context) => {{
+                            var total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                            return value + ' (' + Math.round((value / total) * 100) + '%)';
+                        }}
+                    }}
+                }}
+            }},
+            plugins: [ChartDataLabels]
+        }});
+
+        var ctxChiudere = document.getElementById('graficoChiudere').getContext('2d');
+        new Chart(ctxChiudere, {{
+            type: 'pie',
+            data: {{
+                labels: ['Gol', 'Sbagliati'],
+                datasets: [{{
+                    data: [{chiudere_gol}, {chiudere - chiudere_gol}],
+                    backgroundColor: ['#4CAF50', '#F44336'],
+                }}]
+            }},
+            options: {{
+                responsive: true,
+                plugins: {{
+                    legend: {{ position: 'top' }},
+                    tooltip: {{ enabled: false }},
+                    datalabels: {{
+                        color: '#fff',
+                        font: {{ size: 18, weight: 'bold' }},
+                        formatter: (value, context) => {{
+                            var total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                            return value + ' (' + Math.round((value / total) * 100) + '%)';
+                        }}
+                    }}
+                }}
+            }},
+            plugins: [ChartDataLabels]
+        }});
+    </script>
+    """
+
+    return render_template(
+        "template.html",
+        nome_completo=nome_completo,
+        nome_squadra=nome_squadra,
+        nome_giocatore=nome_giocatore,
+        piede_giocatore=piede,
+        immagine_giocatore=immagine_giocatore,
+        balls_html=balls_html,
+        list_html=table_html,
+        grafici_html=grafici_html
+    )
+
+
+@app.route('/aggiungi_giocatore/<nome_squadra>', methods=['POST'])
+def aggiungi_giocatore(nome_squadra):
+    # Controlla la password
+    password = request.form.get("password")
+    if password != PASSWORD_CORRETTA:
+        return "Errore: Password errata", 403
+
+    squadra_dir = os.path.join('static/campionato/squadre', nome_squadra)
+    giocatori_file = os.path.join(squadra_dir, 'giocatori.csv')
+
+    if os.path.exists(giocatori_file):
+        df_giocatori = pd.read_csv(giocatori_file)
+    else:
+        df_giocatori = pd.DataFrame(columns=['nome_giocatore', 'nome', 'cognome', 'numero', 'piede'])
+
+    nome_giocatore = request.form['nome_giocatore']
+    nome = request.form['nome']
+    numero = request.form['numero']
+    piede = request.form['piede']
+
+    nuovo_giocatore = pd.DataFrame([{
+        'nome_giocatore': nome_giocatore,
+        'cognome': nome_giocatore.split()[0] if ' ' in nome_giocatore else nome_giocatore,
+        'nome': nome,
+        'numero': numero,
+        'piede': piede
+    }])
+
+    df_giocatori = pd.concat([df_giocatori, nuovo_giocatore], ignore_index=True)
+    df_giocatori.to_csv(giocatori_file, index=False)
+
+    # Creazione della cartella per il giocatore
+    giocatore_dir = os.path.join(squadra_dir, nome_giocatore)
+    os.makedirs(giocatore_dir, exist_ok=True)
+
+    # Salva la foto del giocatore
+    if 'foto' in request.files:
+        foto = request.files['foto']
+        if foto.filename:
+            foto_path = os.path.join(giocatore_dir, f'{nome_giocatore}.webp')  # Salva come PNG
+            foto.save(foto_path)
+
+    # Creazione del file Excel vuoto per i rigori del giocatore
+    excel_file = os.path.join(giocatore_dir, f'{nome_giocatore}.xlsx')
+    if not os.path.exists(excel_file):
+        df_vuoto = pd.DataFrame(columns=['Partita', 'Minuto', 'Esito', 'Risultato', 'Link', 'Top', 'Left', 'Video'])
+        df_vuoto.to_excel(excel_file, index=False)
+
+    return redirect(url_for('pagina_squadra', nome_squadra=nome_squadra))
+
+
+@app.route('/aggiungi_rigore/<nome_squadra>/<nome_giocatore>', methods=['POST'])
+def aggiungi_rigore(nome_squadra, nome_giocatore):
+    # Controlla la password
+    password = request.form.get("password")
+    if password != PASSWORD_CORRETTA:
+        return "Errore: Password errata", 403
+
+    giocatore_dir = os.path.join('static/campionato/squadre', nome_squadra, nome_giocatore)
+    excel_file = os.path.join(giocatore_dir, f'{nome_giocatore}.xlsx')
+
+    if not os.path.exists(excel_file):
+        return "Errore: File Excel del giocatore non trovato", 404
+
+    df = pd.read_excel(excel_file)
+
+    partite = request.form.getlist('partita')
+    minuti = request.form.getlist('minuto')
+    esiti = request.form.getlist('esito')
+    risultati = request.form.getlist('risultato')
+    links = request.form.getlist('link')
+    tops = request.form.getlist('top')
+    lefts = request.form.getlist('left')
+
+    nuovi_rigori = []
+
+    for i in range(len(partite)):
+        # Domande del questionario (11 in totale)
+        question_keys = [
+            "Il risultato è in bilico?",
+            "Il rigore è stato calciato negli ultimi 15 minuti?",
+            "Il rigore è stato calciato negli ultimi 5 minuti?",
+            "Il portiere si muove prima della battuta?",
+            "Il rigore è durante i calci di rigore?",
+            "Il rigore è stato controllato al VAR?",
+            "La partita si gioca in trasferta?",
+            "Il pubblico avversario disturba il tiratore?",
+            "Le condizioni meteo sono avverse?",
+            "Il campo è in cattive condizioni nella zona del dischetto del rigore?",
+            "Il rigorista è appena entrato in campo?"
+        ]
+
+        # Raccogli le risposte alle domande
+        question_answers = [
+            request.form.get(f'questionario-{i}-{k}', 'no') for k in range(len(question_keys))
+        ]
+
+        # Calcola l'Indice di Pressione per questo rigore
+        pressure_index = calculate_pressure_index(question_answers)
+
+        nuovo_rigore = {
+            'Partita': partite[i],
+            'Minuto': int(minuti[i]),
+            'Esito': int(esiti[i]),
+            'Risultato': risultati[i],
+            'Link': links[i] if links[i] else None,
+            'Top': float(tops[i]),
+            'Left': float(lefts[i]),
+            'Indice di Pressione': pressure_index
+        }
+
+        # Salvataggio video, se presente
+        video_key = f'video-{i}'
+        if video_key in request.files:
+            video_file = request.files[video_key]
+            if video_file.filename:
+                video_path = os.path.join(giocatore_dir, f"video_{i + 1}.mp4")
+                nuovo_rigore['Video'] = video_path
+                video_file.save(video_path)
+            else:
+                nuovo_rigore['Video'] = None
+
+        nuovi_rigori.append(nuovo_rigore)
+
+    df_nuovi_rigori = pd.DataFrame(nuovi_rigori)
+
+    df = pd.concat([df_nuovi_rigori, df], ignore_index=True)
+    df.to_excel(excel_file, index=False)
+
+    return redirect(url_for('pagina_giocatore', nome_squadra=nome_squadra, nome_giocatore=nome_giocatore))
 if __name__ == '__main__':
     app.run(debug=True,port=8080)
 

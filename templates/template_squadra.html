@@ -21,28 +21,93 @@
 <body>
     <header>
         <div class="logo">
-            <img src="{{ url_for('static', filename='images/logo.webp') }}" alt="Logo Pianese">
+            <img src="{{ url_for('static', filename='images/campobasso.png') }}" alt="Logo">
         </div>
         <nav>
             <ul>
                 <li><a href="{{ url_for('static', filename='index.html') }}">Torna alla Home</a></li>
                 <li><a href="{{ url_for('static', filename='campionato/campionato.html') }}">Campionato</a></li>
-                <li><a href="{{ url_for('static', filename='coppa/coppa.html') }}">Coppa</a></li>
                 <li><a href="{{ url_for('static', filename='calendario/calendario.html') }}">Calendario</a></li>
             </ul>
         </nav>
     </header>
     <main>
         <div class="logosquadra">
-            <img src="{{ url_for('static', filename='images/loghi/' + nome_squadra + '.png') }}" alt="Logo {{ nome_squadra }}" style="width: 16%;">
+            <img src="{{ url_for('static', filename='campionato/loghi/' + nome_squadra + '.png') }}" alt="Logo {{ nome_squadra }}" style="width: 16%;">
         </div>
         <h1>Giocatori {{ nome_squadra_completo }}</h1>
         <div class="players-container">
             {{players|safe}}
         </div>
+        <!-- Bottone fluttuante per aprire il form -->
+        <div class="floating-button" onclick="toggleForm('form-giocatore')">+</div>
+
+        <!-- Overlay per lo sfondo scuro -->
+        <div class="overlay" id="overlay" onclick="toggleForm('form-giocatore')"></div>
+
+        <!-- Form nascosto per aggiungere giocatore -->
+        <div class="form-popup" id="form-giocatore">
+            <button id="close-btn" onclick="toggleForm('form-giocatore')">✕</button>
+            <h3>Aggiungi Giocatore</h3>
+            <form method="POST" action="{{ url_for('aggiungi_giocatore', nome_squadra=nome_squadra) }}">
+                <input type="password" name="password" placeholder="Inserisci password" required>
+                <input type="text" name="nome_giocatore" placeholder="Nome Giocatore" required>
+                <input type="text" name="nome" placeholder="Nome" required>
+                <input type="number" name="numero" placeholder="Numero Maglia" required>
+                <select name="piede">
+                    <option value="Destro">Destro</option>
+                    <option value="Sinistro">Sinistro</option>
+                </select>
+                <input type="file" name="foto" accept="image/*" required>
+                <button type="submit">Aggiungi Giocatore</button>
+            </form>
+        </div>
+
+
+
     </main>
     <footer>
         <p>&copy; Fabio Rossi e Umberto Di Giacomo</p>
     </footer>
+    <script>
+        function toggleForm(formId) {
+            const form = document.getElementById(formId);
+            const overlay = document.getElementById('overlay');
+
+            if (form.style.display === "flex") {
+                form.style.display = "none";
+                overlay.style.display = "none";
+            } else {
+                form.style.display = "flex";
+                overlay.style.display = "block";
+            }
+        }
+
+        let rigoreIndex = 1;
+
+        function aggiungiRigore() {
+            const container = document.getElementById('rigori-container');
+            const rigoreDiv = document.createElement('div');
+            rigoreDiv.className = 'rigore';
+
+            rigoreDiv.innerHTML = `
+                <input type="text" name="partita" placeholder="Partita" required>
+                <input type="number" name="minuto" placeholder="Minuto" required>
+                <select name="esito">
+                    <option value="1">Trasformato</option>
+                    <option value="0">Sbagliato</option>
+                </select>
+                <input type="text" name="risultato" placeholder="Risultato" required>
+                <input type="text" name="link" placeholder="Link Video">
+                <input type="file" name="video-${rigoreIndex}" accept=".mp4">
+                <input type="number" name="top" placeholder="Top (0-10)" required step="0.1">
+                <input type="number" name="left" placeholder="Left (0-30)" required step="0.1">
+            `;
+
+            container.appendChild(rigoreDiv);
+            rigoreIndex++;
+        }
+    </script>
+
 </body>
 </html>

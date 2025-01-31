@@ -17,24 +17,49 @@
             }
         }
     </script>
+    <script>
+        function generateQuestionnaireHTML(id) {
+                const questions = [
+                    "Il risultato è in bilico?",
+                    "Il rigore è stato calciato negli ultimi 15 minuti?",
+                    "Il rigore è stato calciato negli ultimi 5 minuti?",
+                    "Il portiere si muove prima della battuta?",
+                    "Il rigore è durante i calci di rigore?",
+                    "Il rigore è stato controllato al VAR?",
+                    "La partita si gioca in trasferta?",
+                    "Il pubblico avversario disturba il tiratore?",
+                    "Le condizioni meteo sono avverse?",
+                    "Il campo è in cattive condizioni nella zona del dischetto del rigore?",
+                    "Il rigorista è appena entrato in campo?"
+                ];
+                return questions.map((q, i) => `
+                    <label>${q}</label>
+                    <select name="questionario-${id}-${i}" required>
+                        <option value="yes">Sì</option>
+                        <option value="no">No</option>
+                    </select>
+                `).join('');
+            }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 </head>
 <body>
     <header>
         <div class="logo">
-            <img src="{{ url_for('static', filename='images/logo.webp') }}" alt="Logo Pianese">
+            <img src="{{ url_for('static', filename='images/campobasso.png') }}" alt="Logo">
         </div>
         <nav>
             <ul>
                 <li><a href="{{ url_for('static', filename='index.html') }}">Torna alla Home</a></li>
                 <li><a href="{{ url_for('static', filename='campionato/campionato.html') }}">Campionato</a></li>
-                <li><a href="{{ url_for('static', filename='coppa/coppa.html') }}">Coppa</a></li>
                 <li><a href="{{ url_for('static', filename='calendario/calendario.html') }}">Calendario</a></li>
             </ul>
         </nav>
     </header>
     <main>
         <h1>{{ nome_completo }}</h1>
-        <img src="{{ nome_giocatore }}.webp" style="width: 5%;">
+        <img src="{{ url_for('static', filename='campionato/squadre/' + nome_squadra + '/' + nome_giocatore + '/' + nome_giocatore + '.webp') }}" style="width: 5%;">
         <div class="container">
             <h2 style="text-align: center; font-weight: bolder;">
                 Piede di Calcio: {{ piede_giocatore }}
@@ -46,7 +71,7 @@
         </div>
         <div class="back_arrow">
             <p style="margin-bottom: 40px;">Clicca la freccia per tornare alla selezione dei giocatori</p>
-            <a href="{{ url_for('static', filename='campionato/squadre/' + nome_squadra + '/' + nome_squadra + '.html') }}">
+            <a href="{{ url_for('pagina_squadra', nome_squadra=nome_squadra ) }}">
                 <img src="{{ url_for('static', filename='images/back_arrow.png') }}" style="width: 10%;">
             </a>
         </div>
@@ -60,14 +85,176 @@
                 {{ list_html|safe }}
         </div>
         <div class="grafici">
-            {{ grafici_html|safe }}
+            <h3>Distribuzione Rigori</h3>
+            <canvas id="graficoTotale"></canvas>
+
+            <h3>Rigori ad Aprire</h3>
+            <canvas id="graficoAprire"></canvas>
+
+            <h3>Rigori a Chiudere</h3>
+            <canvas id="graficoChiudere"></canvas>
         </div>
+
+        <!-- Bottone fluttuante per aprire il form -->
+        <div class="floating-button" onclick="toggleForm('form-rigore')">+</div>
+
+        <!-- Overlay per lo sfondo scuro -->
+        <div class="overlay" id="overlay" onclick="toggleForm('form-rigore')"></div>
+
+        <!-- Form nascosto per aggiungere rigori -->
+        <div class="form-popup" id="form-rigore">
+            <button id="close-btn" onclick="toggleForm('form-rigore')">✕</button>
+            <h3>Aggiungi Rigori</h3>
+            <form method="POST" action="{{ url_for('aggiungi_rigore', nome_squadra=nome_squadra, nome_giocatore=nome_giocatore) }}" enctype="multipart/form-data">
+                <input type="password" name="password" placeholder="Inserisci password" required>
+                <div id="rigori-container">
+                    <div class="rigore">
+                        <input type="text" name="partita" placeholder="Partita" required>
+                        <input type="number" name="minuto" placeholder="Minuto" required>
+                        <select name="esito">
+                            <option value="1">Trasformato</option>
+                            <option value="0">Sbagliato</option>
+                        </select>
+                        <input type="text" name="risultato" placeholder="Risultato" required>
+                        <input type="text" name="link" placeholder="Link Video">
+                        <input type="file" name="video-0" accept=".mp4">
+                        <input type="number" name="top" placeholder="Top (0-10)" required step="0.1">
+                        <input type="number" name="left" placeholder="Left (0-30)" required step="0.1">
+                        <h5>Questionario Indice di Pressione</h5>
+                        <label>Il risultato è in bilico?</label>
+                        <select name="questionario-0-0" required="">
+                            <option value="yes">Sì</option>
+                            <option value="no">No</option>
+                        </select>
+
+                        <label>Il rigore è stato calciato negli ultimi 15 minuti?</label>
+                        <select name="questionario-0-1" required="">
+                            <option value="yes">Sì</option>
+                            <option value="no">No</option>
+                        </select>
+
+                        <label>Il rigore è stato calciato negli ultimi 5 minuti?</label>
+                        <select name="questionario-0-2" required="">
+                            <option value="yes">Sì</option>
+                            <option value="no">No</option>
+                        </select>
+
+                        <label>Il portiere si muove prima della battuta?</label>
+                        <select name="questionario-0-3" required="">
+                            <option value="yes">Sì</option>
+                            <option value="no">No</option>
+                        </select>
+
+                        <label>Il rigore è durante i calci di rigore?</label>
+                        <select name="questionario-0-4" required="">
+                            <option value="yes">Sì</option>
+                            <option value="no">No</option>
+                        </select>
+
+                        <label>Il rigore è stato controllato al VAR?</label>
+                        <select name="questionario-0-5" required="">
+                            <option value="yes">Sì</option>
+                            <option value="no">No</option>
+                        </select>
+
+                        <label>La partita si gioca in trasferta?</label>
+                        <select name="questionario-0-6" required="">
+                            <option value="yes">Sì</option>
+                            <option value="no">No</option>
+                        </select>
+
+                        <label>Il pubblico avversario disturba il tiratore?</label>
+                        <select name="questionario-0-7" required="">
+                            <option value="yes">Sì</option>
+                            <option value="no">No</option>
+                        </select>
+
+                        <label>Le condizioni meteo sono avverse?</label>
+                        <select name="questionario-0-8" required="">
+                            <option value="yes">Sì</option>
+                            <option value="no">No</option>
+                        </select>
+
+                        <label>Il campo è in cattive condizioni nella zona del dischetto del rigore?</label>
+                        <select name="questionario-0-9" required="">
+                            <option value="yes">Sì</option>
+                            <option value="no">No</option>
+                        </select>
+
+                        <label>Il rigorista è appena entrato in campo?</label>
+                        <select name="questionario-0-10" required="">
+                            <option value="yes">Sì</option>
+                            <option value="no">No</option>
+                        </select>
+
+                    </div>
+                </div>
+
+                <button type="button" onclick="aggiungiRigore()">Aggiungi un altro rigore</button>
+                <button type="submit">Aggiungi Rigori</button>
+            </form>
+        </div>
+
+        <script>
+            function toggleForm(formId) {
+                const form = document.getElementById(formId);
+                const overlay = document.getElementById('overlay');
+
+                if (form.style.display === "flex") {
+                    form.style.display = "none";
+                    overlay.style.display = "none";
+                } else {
+                    form.style.display = "flex";
+                    overlay.style.display = "block";
+                }
+            }
+        </script>
+
+        <script>
+             let rigoreIndex = 1;
+
+            function aggiungiRigore() {
+                const container = document.getElementById('rigori-container');
+                const rigoreDiv = document.createElement('div');
+                rigoreDiv.className = 'rigore';
+                rigoreDiv.id = `rigore-${rigoreIndex}`;
+
+                rigoreDiv.innerHTML = `
+                    <button type="button" class="remove-btn" onclick="rimuoviRigore('rigore-${rigoreIndex}')">Rimuovi</button>
+                    <input type="text" name="partita" placeholder="Partita" required>
+                    <input type="number" name="minuto" placeholder="Minuto" required>
+                    <select name="esito">
+                        <option value="1">Trasformato</option>
+                        <option value="0">Sbagliato</option>
+                    </select>
+                    <input type="text" name="risultato" placeholder="Risultato" required>
+                    <input type="text" name="link" placeholder="Link Video">
+                    <input type="file" name="video-${rigoreIndex}" accept=".mp4">
+                    <input type="number" name="top" placeholder="Top (0-10)" required step="0.1">
+                    <input type="number" name="left" placeholder="Left (0-30)" required step="0.1">
+                    <h5>Questionario Indice di Pressione</h5>
+                        ${generateQuestionnaireHTML(rigoreIndex)}
+                `;
+
+                container.appendChild(rigoreDiv);
+                rigoreIndex++;
+            }
+            function rimuoviRigore(id) {
+                const rigoreDiv = document.getElementById(id);
+                if (rigoreDiv) {
+                    rigoreDiv.remove();
+                }
+            }
+        </script>
+
+
+        {{ grafici_html|safe }}
+
+
     </main>
     <footer>
         <p>&copy; Fabio Rossi e Umberto Di Giacomo</p>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
     <script>
         const clutchValue = {{ clutch_value }};
         const clutchColor = clutchValue < 40 ? 'red' : (clutchValue < 70 ? 'yellow' : 'green');
