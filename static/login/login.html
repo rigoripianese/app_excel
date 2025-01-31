@@ -17,11 +17,24 @@
         ];
 
         async function hashPassword(password) {
+            if (!password) {
+                console.error("Errore: la password è undefined o vuota.");
+                return null;
+            }
+
             const encoder = new TextEncoder();
             const data = encoder.encode(password);
-            const hash = await crypto.subtle.digest('SHA-256', data);
-            return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, '0')).join('');
+
+            try {
+                const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+                const hashArray = Array.from(new Uint8Array(hashBuffer));
+                return hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+            } catch (error) {
+                console.error("Errore nel calcolo dell'hash:", error);
+                return null;
+            }
         }
+
 
         function getQueryParameter(name) {
             const urlParams = new URLSearchParams(window.location.search);
@@ -29,31 +42,29 @@
         }
 
         async function login(event) {
-            event.preventDefault(); // Prevent form from submitting the traditional way
+            event.preventDefault(); // Evita il reload della pagina
 
-            const usernameInput = document.getElementById('username').value;
-            const passwordInput = document.getElementById('password').value;
-
-            // Hash the entered password
-            const hashedPassword = await hashPassword(passwordInput);
-
-            // Check if the entered credentials are valid (comparing hashed passwords)
-            const isValid = validCredentials.some(credentials =>
-                credentials.username === usernameInput && credentials.password === hashedPassword
-            );
-
-            if (isValid) {
-                // Set a flag in session storage to indicate that the user is logged in
-                sessionStorage.setItem('isAuthenticated', 'true');
-
-                // Get the redirect URL from the query parameter
-                const redirectUrl = getQueryParameter('redirect') || 'sito_web/index.html';
-
-                window.location.href = redirectUrl; // Redirect to the chosen page
-            } else {
-                alert('Nome utente o password non validi. Riprova.');
+            const passwordField = document.getElementById('password');
+            if (!passwordField) {
+                console.error("Errore: Campo password non trovato.");
+                return;
             }
+
+            const password = passwordField.value;
+            const hashedPassword = await hashPassword(password);
+
+            if (!hashedPassword) {
+                alert("Errore nel hashing della password. Riprova.");
+                return;
+            }
+
+            console.log("Password Hashed:", hashedPassword);
+
+            // Ora puoi inviare la password hashata al server
+            document.getElementById('password').value = hashedPassword;
+            document.getElementById('login-form').submit();
         }
+
     </script>
 </head>
 <body>
@@ -69,15 +80,13 @@
     </header>
     <main>
         <h1>Accedi</h1>
-        <form class="login-form" onsubmit="login(event)">
-            <div class="form-group">
-                <label for="username">Nome utente</label>
-                <input type="text" id="username" name="username" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
-            </div>
+        <form id="login-form" onsubmit="return login(event)">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
             <button type="submit">Accedi</button>
         </form>
     </main>
