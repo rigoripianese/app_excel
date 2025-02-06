@@ -16,7 +16,7 @@ script_dir = os.getcwd()
 
 def calculate_pressure_index(answers):
     """Calcola l'indice di pressione sulla base delle risposte al questionario."""
-    weights = [1, 0.5, 0.8, 0.5, 1, 1, 0.7, 0.6, 0.6, 0.5, 0.4]
+    weights = [1.3, 0.7, 1.0, 0.7, 1.3, 1.3, 0.9, 0.8, 0.8, 0.6, 0.6]
     return sum(weight for answer, weight in zip(answers, weights) if answer == 'yes')
 
 def calculate_clutch(data):
@@ -687,6 +687,7 @@ def pagina_giocatore(nome_squadra, nome_giocatore):
                 <th>Minuto</th>
                 <th>Esito</th>
                 <th>Risultato</th>
+                <th>Indice di Pressione</th>
                 <th>Video</th>
             </tr>
         </thead>
@@ -718,6 +719,7 @@ def pagina_giocatore(nome_squadra, nome_giocatore):
             <td>{row['Minuto']}</td>
             <td style="background-color: {esito_color}; color: white;">{esito_text}</td>
             <td>{row['Risultato']}</td>
+            <td>{row['Indice di Pressione'] if 'Indice di Pressione' in df.columns else '-'}</td>
             <td><a href="{link}" target="_blank">link</a></td>
         </tr>
         """
@@ -820,7 +822,10 @@ def pagina_giocatore(nome_squadra, nome_giocatore):
         }});
     </script>
     """
-
+    if "Indice di Pressione" in df.columns:
+        clutch_value = calculate_clutch(df)
+    else:
+        clutch_value = "-"
     return render_template(
         "template.html",
         nome_completo=nome_completo,
@@ -830,7 +835,8 @@ def pagina_giocatore(nome_squadra, nome_giocatore):
         immagine_giocatore=immagine_giocatore,
         balls_html=balls_html,
         list_html=table_html,
-        grafici_html=grafici_html
+        grafici_html=grafici_html,
+        clutch_value=clutch_value
     )
 
 
@@ -853,7 +859,7 @@ def aggiungi_giocatore(nome_squadra):
     nome = request.form['nome']
     numero = request.form['numero']
     piede = request.form['piede']
-
+    foto = request.files['foto']
     nuovo_giocatore = pd.DataFrame([{
         'nome_giocatore': nome_giocatore,
         'cognome': nome_giocatore.split()[0] if ' ' in nome_giocatore else nome_giocatore,
@@ -870,16 +876,14 @@ def aggiungi_giocatore(nome_squadra):
     os.makedirs(giocatore_dir, exist_ok=True)
 
     # Salva la foto del giocatore
-    if 'foto' in request.files:
-        foto = request.files['foto']
-        if foto.filename:
-            foto_path = os.path.join(giocatore_dir, f'{nome_giocatore}.webp')  # Salva come PNG
-            foto.save(foto_path)
+    if foto:
+        foto_path = os.path.join(giocatore_dir, f'{nome_giocatore}.webp')  # Salva come PNG
+        foto.save(foto_path)
 
     # Creazione del file Excel vuoto per i rigori del giocatore
     excel_file = os.path.join(giocatore_dir, f'{nome_giocatore}.xlsx')
     if not os.path.exists(excel_file):
-        df_vuoto = pd.DataFrame(columns=['Partita', 'Minuto', 'Esito', 'Risultato', 'Link', 'Top', 'Left', 'Video'])
+        df_vuoto = pd.DataFrame(columns=['Partita', 'Minuto', 'Esito', 'Risultato', 'Link', 'Top', 'Left', 'Video','Indice di Pressione'])
         df_vuoto.to_excel(excel_file, index=False)
 
     return redirect(url_for('pagina_squadra', nome_squadra=nome_squadra))
@@ -909,6 +913,7 @@ def aggiungi_rigore(nome_squadra, nome_giocatore):
     lefts = request.form.getlist('left')
 
     nuovi_rigori = []
+    video_count = df['Video'].count() if 'Video' in df.columns else 0  # Conta quanti video ci sono già
 
     for i in range(len(partite)):
         # Domande del questionario (11 in totale)
@@ -942,28 +947,32 @@ def aggiungi_rigore(nome_squadra, nome_giocatore):
             'Link': links[i] if links[i] else None,
             'Top': float(tops[i]),
             'Left': float(lefts[i]),
-            'Indice di Pressione': pressure_index
+            'Indice di Pressione': pressure_index,
+            'Video': None  # Impostato a None di default
         }
 
-        # Salvataggio video, se presente
+        # Controllo e salvataggio video, se presente
         video_key = f'video-{i}'
-        if video_key in request.files:
+        if video_key in request.files and request.files[video_key].filename:
             video_file = request.files[video_key]
-            if video_file.filename:
-                video_path = os.path.join(giocatore_dir, f"video_{i + 1}.mp4")
-                nuovo_rigore['Video'] = video_path
-                video_file.save(video_path)
-            else:
-                nuovo_rigore['Video'] = None
+            video_count += 1  # Incrementa il contatore globale dei video
+            video_filename = f"video_{video_count}.mp4"
+            video_path = os.path.join(giocatore_dir, video_filename)
+
+            video_file.save(video_path)
+            nuovo_rigore['Video'] = video_filename  # Salva solo il nome del file nel database
 
         nuovi_rigori.append(nuovo_rigore)
 
+    # Creare un DataFrame con i nuovi rigori
     df_nuovi_rigori = pd.DataFrame(nuovi_rigori)
 
+    # Aggiungi i nuovi rigori in cima al DataFrame esistente
     df = pd.concat([df_nuovi_rigori, df], ignore_index=True)
     df.to_excel(excel_file, index=False)
 
     return redirect(url_for('pagina_giocatore', nome_squadra=nome_squadra, nome_giocatore=nome_giocatore))
+
 if __name__ == '__main__':
     app.run(debug=True,port=8080)
 

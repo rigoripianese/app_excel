@@ -49,7 +49,7 @@
         <div class="form-popup" id="form-giocatore">
             <button id="close-btn" onclick="toggleForm('form-giocatore')">✕</button>
             <h3>Aggiungi Giocatore</h3>
-            <form method="POST" action="{{ url_for('aggiungi_giocatore', nome_squadra=nome_squadra) }}">
+            <form method="POST" action="{{ url_for('aggiungi_giocatore', nome_squadra=nome_squadra) }}" enctype="multipart/form-data">
                 <input type="password" name="password" placeholder="Inserisci password" required>
                 <input type="text" name="nome_giocatore" placeholder="Nome Giocatore" required>
                 <input type="text" name="nome" placeholder="Nome" required>
