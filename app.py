@@ -3,7 +3,7 @@ import pandas as pd
 import os
 from jinja2 import Environment, FileSystemLoader
 from bs4 import BeautifulSoup
-
+import subprocess
 
 
 app = Flask(__name__)
@@ -637,7 +637,10 @@ def playlist(nome_squadra,nome_giocatore, video_name):
     )
 @app.route('/squadra/<nome_squadra>')
 def pagina_squadra(nome_squadra):
-    squadra_dir = os.path.join('static/campionato/squadre', nome_squadra)
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # Ottieni il percorso assoluto della directory dello script
+    squadra_dir = os.path.join(BASE_DIR, 'static', 'campionato', 'squadre', nome_squadra)
+
+    #squadra_dir = os.path.join('static/campionato/squadre', nome_squadra)
     squadra_csv_path = os.path.join(squadra_dir, 'squadra.csv')
 
     if not os.path.exists(squadra_csv_path):
@@ -657,7 +660,8 @@ def pagina_squadra(nome_squadra):
 
 @app.route('/giocatore/<nome_squadra>/<nome_giocatore>')
 def pagina_giocatore(nome_squadra, nome_giocatore):
-    giocatore_dir = os.path.join('static/campionato/squadre', nome_squadra, nome_giocatore)
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    giocatore_dir = os.path.join(BASE_DIR,'static/campionato/squadre', nome_squadra, nome_giocatore)
     excel_file = os.path.join(giocatore_dir, f'{nome_giocatore}.xlsx')
 
     if not os.path.exists(excel_file):
@@ -666,7 +670,7 @@ def pagina_giocatore(nome_squadra, nome_giocatore):
     df = pd.read_excel(excel_file)
 
     # Recupera nome completo e piede
-    giocatori_file = os.path.join(f'static/campionato/squadre/{nome_squadra}/giocatori.csv')
+    giocatori_file = os.path.join(BASE_DIR,f'static/campionato/squadre/{nome_squadra}/giocatori.csv')
     df_giocatori = pd.read_csv(giocatori_file)
 
     giocatore_info = df_giocatori[df_giocatori['nome_giocatore'] == nome_giocatore].iloc[0]
@@ -846,8 +850,8 @@ def aggiungi_giocatore(nome_squadra):
     password = request.form.get("password")
     if password != PASSWORD_CORRETTA:
         return "Errore: Password errata", 403
-
-    squadra_dir = os.path.join('static/campionato/squadre', nome_squadra)
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    squadra_dir = os.path.join(BASE_DIR,'static/campionato/squadre', nome_squadra)
     giocatori_file = os.path.join(squadra_dir, 'giocatori.csv')
 
     if os.path.exists(giocatori_file):
@@ -895,8 +899,8 @@ def aggiungi_rigore(nome_squadra, nome_giocatore):
     password = request.form.get("password")
     if password != PASSWORD_CORRETTA:
         return "Errore: Password errata", 403
-
-    giocatore_dir = os.path.join('static/campionato/squadre', nome_squadra, nome_giocatore)
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    giocatore_dir = os.path.join(BASE_DIR,'static/campionato/squadre', nome_squadra, nome_giocatore)
     excel_file = os.path.join(giocatore_dir, f'{nome_giocatore}.xlsx')
 
     if not os.path.exists(excel_file):
@@ -972,6 +976,14 @@ def aggiungi_rigore(nome_squadra, nome_giocatore):
     df.to_excel(excel_file, index=False)
 
     return redirect(url_for('pagina_giocatore', nome_squadra=nome_squadra, nome_giocatore=nome_giocatore))
+
+
+
+@app.route('/webhook', methods=['POST'])
+def webhook():
+    subprocess.Popen(["/home/Reus3111/update_repo.sh"])
+    return "OK", 200
+
 
 if __name__ == '__main__':
     app.run(debug=True,port=8080)
