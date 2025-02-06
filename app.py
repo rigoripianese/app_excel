@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 import subprocess
 
 
+
 app = Flask(__name__)
 
 PASSWORD_CORRETTA = "tester"
@@ -655,7 +656,7 @@ def pagina_squadra(nome_squadra):
         for _, row in giocatori_df.iterrows()
     ])
 
-    return render_template("template_squadra.html", nome_squadra=nome_squadra, players=players_html)
+    return render_template("template_squadra.html", nome_squadra=nome_squadra, players=players_html, nome_squadra_completo=squadra_df["nome_squadra"].iloc[0])
 
 
 @app.route('/giocatore/<nome_squadra>/<nome_giocatore>')
