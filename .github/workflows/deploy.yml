@@ -10,4 +10,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Call Webhook
-        run: curl -X POST https://reus3111.pythonanywhere.com//webhook
+        run: curl -X POST https://reus3111.pythonanywhere.com/webhook
